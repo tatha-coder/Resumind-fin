@@ -1,0 +1,6 @@
+{
+  "name": "AI Resume Analysis System",
+  "description": "AI-powered resume analysis, ATS scoring, and profile management system with secure user authentication and PDF parsing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
