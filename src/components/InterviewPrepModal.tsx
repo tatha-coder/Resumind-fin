@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { MessageSquare, Sparkles, ChevronDown, ChevronUp, CheckCircle2, AlertCircle, HelpCircle } from 'lucide-react';
+import { 
+  MessageSquare, 
+  ChevronDown, 
+  ChevronUp, 
+  CheckCircle2, 
+  AlertCircle, 
+  Briefcase,
+  Copy,
+  Check,
+  TrendingUp
+} from 'lucide-react';
 import { AnalysisResult, InterviewQuestion } from '../types';
 import { safeFetchJson } from '../lib/api';
 
@@ -9,12 +19,13 @@ interface InterviewPrepModalProps {
 }
 
 export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis, token }) => {
-  const [jobTitle, setJobTitle] = useState('Senior Software Engineer');
+  const [jobTitle, setJobTitle] = useState('Senior Full Stack Engineer');
   const [jobDescriptionText, setJobDescriptionText] = useState('');
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<InterviewQuestion[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,76 +50,89 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
 
       setQuestions(res.data.questions || []);
     } catch (err: any) {
-      setError(err.message || 'Error generating interview prep.');
+      setError(err.message || 'Error generating interview questions.');
     } finally {
       setLoading(false);
     }
   };
 
+  const handleCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
       
       {/* Form Card */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 sm:p-6 transition-colors">
         <div className="flex items-center space-x-3 mb-2">
-          <div className="w-10 h-10 bg-blue-50 border border-blue-100 rounded-xl text-blue-600 shrink-0 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 shrink-0 flex items-center justify-center font-bold">
             <MessageSquare className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-900">AI Interview Prep & Question Generator</h2>
-            <p className="text-xs text-slate-500">
-              Generates high-probability interview questions targeting specific achievements in your parsed resume ({analysis.pdfMeta.filename}).
+            <h2 className="text-base font-bold text-slate-900 dark:text-white">
+              Interview Preparation & STAR Response Strategy
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Generates targeted behavioral and technical interview questions based directly on your audited experience ({analysis.pdfMeta?.filename}).
             </p>
           </div>
         </div>
 
-        <form onSubmit={handleGenerate} className="mt-6 space-y-4">
+        <form onSubmit={handleGenerate} className="mt-5 space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Target Job Role</label>
-            <input
-              type="text"
-              required
-              value={jobTitle}
-              onChange={(e) => setJobTitle(e.target.value)}
-              placeholder="e.g. Senior Frontend Engineer"
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white font-medium"
-            />
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+              Target Position / Role Title
+            </label>
+            <div className="relative">
+              <Briefcase className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              <input
+                type="text"
+                required
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                placeholder="e.g. Staff Software Engineer"
+                className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-[#161f33] border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-slate-600 font-sans"
+              />
+            </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-              Job Description Context (Optional)
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+              Job Description or Key Focus Areas (Optional)
             </label>
             <textarea
               rows={2}
               value={jobDescriptionText}
               onChange={(e) => setJobDescriptionText(e.target.value)}
-              placeholder="Paste key responsibilities to target interview questions even closer..."
-              className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-blue-600 focus:bg-white font-mono"
+              placeholder="e.g. Large-scale distributed systems, architectural trade-offs, team mentorship..."
+              className="w-full p-3 bg-slate-50 dark:bg-[#161f33] border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-slate-600 font-mono"
             />
           </div>
 
           {error && (
-            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-center space-x-2 font-medium">
+            <div className="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-lg text-xs text-rose-700 dark:text-rose-300 flex items-center justify-center space-x-2 font-medium">
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
-          <div className="flex justify-end">
+          <div className="flex justify-end pt-1">
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center space-x-2 disabled:opacity-50"
+              className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-bold text-xs rounded-lg transition-colors flex items-center space-x-2 disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Generating Tailored Q&A...</span>
+                  <div className="w-4 h-4 border-2 border-slate-400 border-t-white dark:border-t-slate-900 rounded-full animate-spin" />
+                  <span>Synthesizing Interview Questions & STAR Guide...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4" />
+                  <TrendingUp className="w-4 h-4" />
                   <span>Generate Interview Questions</span>
                 </>
               )}
@@ -120,48 +144,62 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
       {/* Generated Questions List */}
       {questions.length > 0 && (
         <div className="space-y-4 animate-fade-in">
-          <h3 className="font-bold text-sm text-slate-900 flex items-center space-x-2">
-            <HelpCircle className="w-4 h-4 text-amber-600" />
-            <span>Targeted Interview Questions & Winning Strategy</span>
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+              Tailored Interview Questions & Response Formulation ({questions.length})
+            </h3>
+          </div>
 
           <div className="space-y-3">
             {questions.map((q, idx) => (
-              <div key={idx} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm hover:border-blue-300 transition-colors">
+              <div 
+                key={idx} 
+                className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden transition-colors"
+              >
                 <button
                   onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                  className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-slate-50 transition-colors"
+                  className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-slate-50 dark:hover:bg-[#161f33]/60 transition-colors cursor-pointer"
                 >
-                  <div className="space-y-1">
+                  <div className="space-y-1.5">
                     <div className="flex items-center space-x-2">
-                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200">
+                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                         {q.type}
                       </span>
-                      <span className="text-xs font-bold text-slate-900">Question {idx + 1}</span>
+                      <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Question {idx + 1}</span>
                     </div>
-                    <p className="text-sm font-semibold text-slate-900">{q.question}</p>
+                    <p className="text-sm font-bold text-slate-900 dark:text-white leading-snug">{q.question}</p>
                   </div>
 
                   {openIdx === idx ? (
-                    <ChevronUp className="w-5 h-5 text-slate-400 shrink-0 mt-1" />
+                    <ChevronUp className="w-4 h-4 text-slate-400 shrink-0 mt-1" />
                   ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-400 shrink-0 mt-1" />
+                    <ChevronDown className="w-4 h-4 text-slate-400 shrink-0 mt-1" />
                   )}
                 </button>
 
                 {openIdx === idx && (
-                  <div className="p-5 bg-slate-50 border-t border-slate-200 space-y-3">
-                    <p className="text-xs text-blue-800 font-medium bg-blue-50 p-3 rounded-xl border border-blue-200">
-                      🎯 Context: {q.context}
-                    </p>
+                  <div className="p-4 bg-slate-50 dark:bg-[#161f33] border-t border-slate-200 dark:border-slate-800 space-y-3.5">
+                    <div className="text-xs text-slate-700 dark:text-slate-300 font-medium bg-white dark:bg-[#111827] p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                      <strong className="font-bold text-slate-900 dark:text-white">Interviewer Intent:</strong> {q.context}
+                    </div>
 
                     <div className="space-y-2">
-                      <span className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">
-                        Ideal Answer Strategy Keypoints (STAR Method):
-                      </span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                          Key Talking Points (STAR Method):
+                        </span>
+                        <button
+                          onClick={() => handleCopy(q.idealAnswerKeypoints.join('\n• '), `q_${idx}`)}
+                          className="text-[10px] text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white flex items-center space-x-1 font-semibold cursor-pointer"
+                        >
+                          {copiedId === `q_${idx}` ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                          <span>Copy Strategy</span>
+                        </button>
+                      </div>
+
                       <ul className="space-y-2">
                         {q.idealAnswerKeypoints.map((kp, kIdx) => (
-                          <li key={kIdx} className="flex items-start space-x-2 text-xs text-slate-700 font-medium">
+                          <li key={kIdx} className="flex items-start space-x-2 text-xs text-slate-700 dark:text-slate-300 font-medium bg-white dark:bg-[#111827] p-3 rounded-lg border border-slate-200 dark:border-slate-700">
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{kp}</span>
                           </li>

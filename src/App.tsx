@@ -8,9 +8,8 @@ import { JobMatchSection } from './components/JobMatchSection';
 import { CoverLetterModal } from './components/CoverLetterModal';
 import { InterviewPrepModal } from './components/InterviewPrepModal';
 import { SupabaseBadge } from './components/SupabaseBadge';
-import { InteractiveCursor } from './components/InteractiveCursor';
-import { User, AnalysisResult, PdfMetadata } from './types';
-import { Sparkles, ShieldCheck, FileText, ArrowRight, UserPlus, Info, Mail } from 'lucide-react';
+import { User, AnalysisResult } from './types';
+import { ShieldCheck, Mail, UserPlus, FileCheck } from 'lucide-react';
 import { supabase, mapSupabaseUser } from './lib/supabase';
 import { safeFetchJson } from './lib/api';
 
@@ -123,7 +122,7 @@ export default function App() {
   const handleUploadAndAnalyze = async (pdfBase64: string, filename: string, role: string) => {
     if (!token || !user) {
       setAuthModalOpen(true);
-      throw new Error('Please sign in or create an account to analyze and save resumes to your profile.');
+      throw new Error('Please sign in or create an account to audit and save resumes to your profile.');
     }
 
     setLoading(true);
@@ -162,11 +161,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-blue-600 selection:text-white transition-colors duration-200 relative">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
       
-      {/* Custom Interactive Reactive Cursor */}
-      <InteractiveCursor theme={theme} />
-
       {/* Navigation Bar */}
       <Navbar
         user={user}
@@ -180,42 +176,42 @@ export default function App() {
       />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         
         {/* User Session Banner or Guest Callout */}
         {!user ? (
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors duration-200">
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors">
             <div className="flex items-center space-x-3.5">
-              <div className="w-10 h-10 bg-blue-50 dark:bg-blue-950 border border-blue-100 dark:border-blue-800 rounded-xl text-blue-600 dark:text-blue-400 shrink-0 flex items-center justify-center font-bold">
-                <ShieldCheck className="w-5 h-5" />
+              <div className="w-9 h-9 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 shrink-0 flex items-center justify-center font-bold">
+                <ShieldCheck className="w-5 h-5 text-slate-700 dark:text-slate-300" />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-slate-900 dark:text-white">Unique Profile & Confidential Storage</h2>
+                <h2 className="text-sm font-semibold text-slate-900 dark:text-white">Confidential Profile & Isolated Resume Storage</h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Each user account has isolated resume analysis records, custom target roles, and private cover letters.
+                  Each authenticated account gets isolated resume audit histories, private cover letter records, and customized target role baselines.
                 </p>
               </div>
             </div>
 
             <button
               onClick={() => setAuthModalOpen(true)}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs shrink-0 flex items-center space-x-1.5 transition-colors cursor-pointer"
+              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-semibold text-xs rounded-lg shrink-0 flex items-center space-x-1.5 transition-colors cursor-pointer"
             >
               <UserPlus className="w-4 h-4" />
               <span>Sign In / Create Account</span>
             </button>
           </div>
         ) : (
-          <div className="flex items-center justify-between bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-600 dark:text-slate-300 shadow-xs transition-colors duration-200">
+          <div className="flex items-center justify-between bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2.5 text-xs text-slate-600 dark:text-slate-300 transition-colors">
             <div className="flex items-center space-x-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Logged in as <strong className="text-slate-900 dark:text-white">{user.name}</strong> ({user.email})</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span>Active session: <strong className="text-slate-900 dark:text-white">{user.name}</strong> ({user.email})</span>
             </div>
             <button
               onClick={() => setActiveTab('profile')}
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold underline cursor-pointer"
+              className="text-slate-900 dark:text-slate-100 hover:underline font-semibold cursor-pointer"
             >
-              View My Confidential History →
+              Saved Audits →
             </button>
           </div>
         )}
@@ -224,30 +220,27 @@ export default function App() {
 
         {/* TAB 1: Main Analyzer */}
         {activeTab === 'analyzer' && (
-          <div className="space-y-8">
+          <div className="space-y-6">
             
             {/* Page Title Header */}
             {!analysisResult && (
-              <div className="text-center max-w-2xl mx-auto space-y-3">
-                <div className="inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800/80 text-blue-700 dark:text-blue-300 text-xs font-bold shadow-xs">
-                  <div className="flex items-center space-x-1.5">
-                    <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                    <span>Created by Tathagata Chakraborty</span>
-                  </div>
-                  <span className="hidden sm:inline text-blue-300 dark:text-blue-700">•</span>
+              <div className="text-center max-w-2xl mx-auto space-y-2.5 pt-2 pb-1">
+                <div className="inline-flex flex-wrap items-center justify-center gap-2 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-medium">
+                  <span>Created by Tathagata Chakraborty</span>
+                  <span className="text-slate-300 dark:text-slate-600">•</span>
                   <a
                     href="mailto:tathagatachakraborty1234@gmail.com"
-                    className="flex items-center space-x-1 hover:underline text-blue-800 dark:text-blue-200 font-semibold"
+                    className="flex items-center space-x-1 hover:underline text-slate-800 dark:text-slate-200 font-semibold"
                   >
                     <Mail className="w-3 h-3" />
                     <span>tathagatachakraborty1234@gmail.com</span>
                   </a>
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  AI Resume Analysis & ATS Optimizer
+                <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                  Resume Diagnostics & ATS Compatibility Audit
                 </h1>
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                  Upload your PDF resume to receive immediate ATS compliance scores, section-by-section diagnostics, and AI-rewritten high-impact metrics.
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mx-auto">
+                  Upload your PDF resume to evaluate ATS parsing readability, uncover missing high-frequency keywords, and review quantified bullet rewrites.
                 </p>
               </div>
             )}
@@ -312,17 +305,17 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-6 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="font-medium text-slate-600 dark:text-slate-400">ResuMind AI Resume System • Multi-tenant Profile Isolation</p>
-          <div className="flex flex-wrap items-center justify-center gap-4">
+      <footer className="mt-auto border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0c1220] py-5 text-xs text-slate-500 dark:text-slate-400 transition-colors">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-medium text-slate-600 dark:text-slate-400">ResuMind • Professional Resume Audit & Keyword Benchmark</p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <SupabaseBadge />
-            <div className="flex items-center space-x-2 text-[11px] text-slate-600 dark:text-slate-300 font-medium bg-slate-100 dark:bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-200 dark:border-slate-700">
+            <div className="flex items-center space-x-2 text-[11px] text-slate-600 dark:text-slate-300 font-medium bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-md border border-slate-200 dark:border-slate-700">
               <span>Contact: <strong>Tathagata Chakraborty</strong></span>
               <span>•</span>
               <a
                 href="mailto:tathagatachakraborty1234@gmail.com"
-                className="text-blue-600 dark:text-blue-400 hover:underline flex items-center space-x-1 font-semibold"
+                className="text-slate-800 dark:text-slate-200 hover:underline flex items-center space-x-1 font-semibold"
               >
                 <Mail className="w-3 h-3" />
                 <span>tathagatachakraborty1234@gmail.com</span>

@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
-import { Target, Briefcase, Building, Sparkles, CheckCircle2, XCircle, AlertCircle, Copy, Check, ArrowRight } from 'lucide-react';
+import { 
+  Target, 
+  Sparkles, 
+  Briefcase, 
+  CheckCircle2, 
+  XCircle, 
+  AlertCircle, 
+  Copy, 
+  Check, 
+  ArrowRight,
+  TrendingUp,
+  FileCheck
+} from 'lucide-react';
 import { AnalysisResult, JobMatchResult } from '../types';
 import { safeFetchJson } from '../lib/api';
 
@@ -8,19 +20,41 @@ interface JobMatchSectionProps {
   token: string;
 }
 
+const SAMPLE_JDS = [
+  {
+    title: 'Senior Frontend Engineer @ Stripe',
+    text: `We are looking for a Senior Frontend Engineer to join Stripe's Dashboard Infrastructure team.
+Requirements:
+- 5+ years of experience with React, TypeScript, and modern state architecture
+- Proven experience building distributed, highly resilient design systems
+- Deep knowledge of web performance metrics, bundle optimization, and latency reduction
+- Experience collaborating cross-functionally with product managers and backend teams
+- Strong automated testing discipline (Jest, Playwright, Cypress)`
+  },
+  {
+    title: 'Lead Product Manager @ Linear',
+    text: `Linear is looking for a Lead Product Manager to drive developer tooling and issue tracking workflows.
+Requirements:
+- 6+ years in product management at a fast-growing B2B SaaS or developer tools company
+- Demonstrated track record of launching high-retention features with quantifiable business metrics
+- Deep empathy for technical users and engineering workflows
+- Strong quantitative and analytical skills (SQL, Cohort retention analysis)
+- Excellent written communication and specification writing skills`
+  }
+];
+
 export const JobMatchSection: React.FC<JobMatchSectionProps> = ({ analysis, token }) => {
-  const [jobTitle, setJobTitle] = useState('Senior Software Engineer');
-  const [companyName, setCompanyName] = useState('');
-  const [jobDescriptionText, setJobDescriptionText] = useState('');
+  const [jobTitle, setJobTitle] = useState('Senior Frontend Engineer');
+  const [jobDescription, setJobDescription] = useState(SAMPLE_JDS[0].text);
   const [loading, setLoading] = useState(false);
   const [matchResult, setMatchResult] = useState<JobMatchResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const handleAnalyzeMatch = async (e: React.FormEvent) => {
+  const handleMatch = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!jobDescriptionText.trim()) {
-      setError('Please paste the job description text.');
+    if (!jobDescription.trim()) {
+      setError('Please paste a target job description to match against.');
       return;
     }
 
@@ -28,7 +62,7 @@ export const JobMatchSection: React.FC<JobMatchSectionProps> = ({ analysis, toke
     setError(null);
 
     try {
-      const res = await safeFetchJson('/api/resume/analyze-jd-match', {
+      const res = await safeFetchJson('/api/resume/match-job', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,16 +71,15 @@ export const JobMatchSection: React.FC<JobMatchSectionProps> = ({ analysis, toke
         body: JSON.stringify({
           analysisId: analysis.id,
           jobTitle,
-          companyName,
-          jobDescriptionText,
+          jobDescription,
         }),
       });
 
-      if (!res.ok || !res.data) throw new Error(res.error || 'Failed to analyze job match.');
+      if (!res.ok || !res.data) throw new Error(res.error || 'Failed to match job.');
 
-      setMatchResult(res.data.matchResult);
+      setMatchResult(res.data.jobMatch);
     } catch (err: any) {
-      setError(err.message || 'Error running job description match analysis.');
+      setError(err.message || 'Error matching job description.');
     } finally {
       setLoading(false);
     }
@@ -58,120 +91,100 @@ export const JobMatchSection: React.FC<JobMatchSectionProps> = ({ analysis, toke
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  const loadSampleJd = () => {
-    setJobTitle('Senior Frontend Engineer');
-    setCompanyName('TechCorp Cloud');
-    setJobDescriptionText(`We are looking for a Senior Frontend Engineer to join our core Web Applications team.
-Key Responsibilities:
-- Architect and build high-performance React and TypeScript web applications.
-- Optimize web app performance, state management, and API integration.
-- Work closely with UX/UI designers and Backend developers to deliver clean user interfaces.
-Requirements:
-- 4+ years of professional experience with React, TypeScript, and modern CSS (Tailwind).
-- Deep knowledge of REST APIs, GraphQL, and client-side performance profiling.
-- Experience with CI/CD pipelines, Docker, and Automated Unit Testing (Jest/Playwright).
-- Excellent communication and cross-functional leadership abilities.`);
-  };
-
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-fade-in">
+    <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
       
-      {/* Header */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+      {/* Target JD Input Card */}
+      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 sm:p-6 transition-colors">
         <div className="flex items-center space-x-3 mb-2">
-          <div className="w-10 h-10 bg-blue-50 border border-blue-100 rounded-xl text-blue-600 shrink-0 flex items-center justify-center font-bold">
+          <div className="w-9 h-9 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-300 shrink-0 flex items-center justify-center font-bold">
             <Target className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-slate-900">Job Description Matcher & Tailor</h2>
-            <p className="text-xs text-slate-500">
-              Benchmark your parsed resume ({analysis.pdfMeta.filename}) against any target job opening to find missing keywords and tailor bullet points.
+            <h2 className="text-base font-bold text-slate-900 dark:text-white">
+              Target Job Match & Keyword Benchmark
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Benchmark your uploaded resume against specific job requirements ({analysis.pdfMeta?.filename}).
             </p>
           </div>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleAnalyzeMatch} className="mt-6 space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                Target Job Title
-              </label>
-              <div className="relative">
-                <Briefcase className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                <input
-                  type="text"
-                  required
-                  value={jobTitle}
-                  onChange={(e) => setJobTitle(e.target.value)}
-                  placeholder="e.g. Senior Frontend Engineer"
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white font-medium"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                Company Name (Optional)
-              </label>
-              <div className="relative">
-                <Building className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
-                <input
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  placeholder="e.g. Google, Stripe, Microsoft"
-                  className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white font-medium"
-                />
-              </div>
+        <form onSubmit={handleMatch} className="mt-5 space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+              Target Role / Position Title
+            </label>
+            <div className="relative">
+              <Briefcase className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
+              <input
+                type="text"
+                required
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                placeholder="e.g. Senior Frontend Engineer"
+                className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-[#161f33] border border-slate-200 dark:border-slate-700 rounded-lg text-xs font-medium text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-slate-600 dark:focus:border-slate-400 font-sans"
+              />
             </div>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">
-                Paste Job Description
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                Job Description Text & Requirements
               </label>
-              <button
-                type="button"
-                onClick={loadSampleJd}
-                className="text-xs text-blue-600 hover:text-blue-700 underline font-semibold"
-              >
-                Load Sample Tech Job Description
-              </button>
+              
+              {/* Sample JD loader buttons */}
+              <div className="flex items-center space-x-1.5">
+                <span className="text-[11px] text-slate-400 hidden sm:inline">Load Sample:</span>
+                {SAMPLE_JDS.map((jd, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      setJobTitle(jd.title);
+                      setJobDescription(jd.text);
+                    }}
+                    className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer"
+                  >
+                    {idx === 0 ? 'Stripe JD' : 'Linear JD'}
+                  </button>
+                ))}
+              </div>
             </div>
+
             <textarea
-              rows={6}
               required
-              value={jobDescriptionText}
-              onChange={(e) => setJobDescriptionText(e.target.value)}
-              placeholder="Paste the full job posting text here (responsibilities, requirements, technical stack)..."
-              className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white leading-relaxed font-mono"
+              rows={6}
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+              placeholder="Paste the full job description requirements here..."
+              className="w-full p-3 bg-slate-50 dark:bg-[#161f33] border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-slate-600 font-mono leading-relaxed"
             />
           </div>
 
           {error && (
-            <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-center space-x-2 font-medium">
+            <div className="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-lg text-xs text-rose-700 dark:text-rose-300 flex items-center justify-center space-x-2 font-medium">
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
-          <div className="flex justify-end">
+          <div className="flex justify-end pt-1">
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow-sm transition-all flex items-center space-x-2 disabled:opacity-50"
+              className="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-bold text-xs rounded-lg transition-colors flex items-center space-x-2 disabled:opacity-50 cursor-pointer"
             >
               {loading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  <span>Matching & Tailoring with Gemini AI...</span>
+                  <div className="w-4 h-4 border-2 border-slate-400 border-t-white dark:border-t-slate-900 rounded-full animate-spin" />
+                  <span>Evaluating Job Requirements & Matching Keywords...</span>
                 </>
               ) : (
                 <>
-                  <Sparkles className="w-4 h-4" />
-                  <span>Run Job Match & Tailor</span>
+                  <Target className="w-4 h-4" />
+                  <span>Analyze Job Match & Generate Bullets</span>
                 </>
               )}
             </button>
@@ -181,111 +194,108 @@ Requirements:
 
       {/* Match Results Display */}
       {matchResult && (
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-8 animate-fade-in">
+        <div className="space-y-5 animate-fade-in">
           
-          {/* Top Score Banner */}
-          <div className="flex flex-col sm:flex-row items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-200 gap-4">
+          {/* Match Score Overview */}
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 sm:p-6 transition-colors space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xs font-bold text-slate-500 uppercase">Match Result</span>
+                  <span className="text-xs text-slate-400">•</span>
+                  <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                    {matchResult.jobTitle}
+                  </h3>
+                </div>
+                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                  {matchResult.fitSummary}
+                </p>
+              </div>
+
+              <div className={`flex flex-col items-center justify-center px-4 py-3 rounded-lg border shrink-0 ${
+                matchResult.matchScore >= 80 
+                  ? 'bg-emerald-50 dark:bg-emerald-950/70 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300'
+                  : matchResult.matchScore >= 60
+                  ? 'bg-amber-50 dark:bg-amber-950/70 border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300'
+                  : 'bg-rose-50 dark:bg-rose-950/70 border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300'
+              }`}>
+                <span className="text-2xl font-extrabold font-mono tracking-tight">{matchResult.matchScore}%</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider opacity-85 mt-0.5">JD Alignment</span>
+              </div>
+            </div>
+
+            {/* Missing vs Matched Keywords Matrix */}
+            <div className="grid md:grid-cols-2 gap-4">
+              
+              {/* Matched Keywords */}
+              <div className="bg-slate-50 dark:bg-[#161f33] p-4 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center space-x-2 text-emerald-700 dark:text-emerald-400">
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-wider">Matching Keywords Found ({matchResult.matchingKeywords.length})</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {matchResult.matchingKeywords.map((kw, i) => (
+                    <span key={i} className="px-2 py-0.5 bg-white dark:bg-slate-800 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded text-xs font-medium">
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Missing Keywords */}
+              <div className="bg-slate-50 dark:bg-[#161f33] p-4 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center space-x-2 text-rose-700 dark:text-rose-400">
+                  <XCircle className="w-4 h-4 shrink-0" />
+                  <span className="text-xs font-bold uppercase tracking-wider">Missing Required Keywords ({matchResult.missingKeywords.length})</span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {matchResult.missingKeywords.map((kw, i) => (
+                    <span key={i} className="px-2 py-0.5 bg-white dark:bg-slate-800 text-rose-800 dark:text-rose-300 border border-rose-200 dark:border-rose-800 rounded text-xs font-medium">
+                      {kw}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Tailored Bullet Points */}
+          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 sm:p-6 transition-colors space-y-4">
             <div>
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                Target Role Match Analysis
-              </span>
-              <h3 className="text-xl font-bold text-slate-900 mt-0.5">
-                {matchResult.jobTitle} {matchResult.companyName ? `at ${matchResult.companyName}` : ''}
+              <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center space-x-2">
+                <FileCheck className="w-4 h-4 text-emerald-600" />
+                <span>Job-Tailored Bullets with Integrated Keywords</span>
               </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Copy these high-impact bullets directly into your resume to close identified keyword gaps.
+              </p>
             </div>
 
-            <div className="flex items-center space-x-3 bg-white px-5 py-2.5 rounded-2xl border border-slate-200 shadow-sm">
-              <div className="text-right">
-                <p className="text-2xl font-black text-blue-600">{matchResult.matchScore}%</p>
-                <p className="text-[10px] text-slate-500 uppercase font-bold">JD Match Score</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Keywords Comparison */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
-              <h4 className="text-xs font-bold text-emerald-700 uppercase tracking-wider flex items-center space-x-1.5">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Matched Keywords Found in Resume</span>
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {matchResult.matchedKeywords.map((kw, i) => (
-                  <span key={i} className="px-2.5 py-1 bg-green-100 text-green-800 border border-green-200 rounded-lg text-xs font-semibold">
-                    ✓ {kw}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
-              <h4 className="text-xs font-bold text-rose-700 uppercase tracking-wider flex items-center space-x-1.5">
-                <XCircle className="w-4 h-4" />
-                <span>Missing Essential Keywords</span>
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {matchResult.missingKeywords.map((kw, i) => (
-                  <span key={i} className="px-2.5 py-1 bg-rose-100 text-rose-800 border border-rose-200 rounded-lg text-xs font-semibold">
-                    + Add "{kw}"
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Tailored Summary */}
-          <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
-            <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold text-blue-700 uppercase tracking-wider flex items-center space-x-1.5">
-                <Sparkles className="w-4 h-4 text-blue-600" />
-                <span>Tailored Professional Summary (Optimized for this JD)</span>
-              </h4>
-              <button
-                onClick={() => handleCopy(matchResult.tailoredSummary, 'tailoredSummary')}
-                className="px-2.5 py-1 bg-white border border-slate-200 hover:bg-slate-100 text-slate-700 rounded-lg text-xs font-semibold flex items-center space-x-1 transition-colors"
-              >
-                {copiedId === 'tailoredSummary' ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
-                <span className="text-xs">Copy Summary</span>
-              </button>
-            </div>
-            <p className="text-xs text-slate-800 leading-relaxed font-sans bg-white p-4 rounded-xl border border-slate-200 font-medium">
-              {matchResult.tailoredSummary}
-            </p>
-          </div>
-
-          {/* Tailored Bullets */}
-          {matchResult.tailoredBullets && matchResult.tailoredBullets.length > 0 && (
-            <div className="space-y-4">
-              <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                Tailored Bullet Point Optimizations
-              </h4>
-
+            <div className="space-y-3">
               {matchResult.tailoredBullets.map((bullet, idx) => (
-                <div key={idx} className="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-3">
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-500 uppercase">Original Bullet:</span>
-                    <p className="text-xs text-slate-500 line-through mt-0.5">{bullet.original}</p>
+                <div key={idx} className="bg-slate-50 dark:bg-[#161f33] p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="text-xs text-slate-900 dark:text-slate-100 font-semibold leading-relaxed">
+                      {bullet.bullet}
+                    </p>
+                    <button
+                      onClick={() => handleCopy(bullet.bullet, `tb_${idx}`)}
+                      className="px-2.5 py-1 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded text-xs font-medium flex items-center space-x-1 shrink-0 transition-colors cursor-pointer"
+                    >
+                      {copiedId === `tb_${idx}` ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedId === `tb_${idx}` ? 'Copied' : 'Copy'}</span>
+                    </button>
                   </div>
 
-                  <div className="bg-white p-3.5 rounded-xl border border-blue-200 space-y-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-emerald-700 uppercase flex items-center space-x-1">
-                        <Sparkles className="w-3 h-3 text-blue-600" />
-                        <span>Target Keyword Infused Bullet ({bullet.targetKeyword})</span>
-                      </span>
-                      <button
-                        onClick={() => handleCopy(bullet.tailored, `tb_${idx}`)}
-                        className="p-1 text-blue-600 hover:text-blue-800 transition-colors font-semibold"
-                      >
-                        {copiedId === `tb_${idx}` ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-                      </button>
-                    </div>
-                    <p className="text-xs text-slate-900 font-semibold">{bullet.tailored}</p>
+                  <div className="flex items-center space-x-2 text-[11px] text-slate-600 dark:text-slate-400">
+                    <span className="font-bold text-emerald-700 dark:text-emerald-400">Keywords Weaved:</span>
+                    <span>{bullet.targetKeywordsIncluded.join(', ')}</span>
                   </div>
                 </div>
               ))}
             </div>
-          )}
+          </div>
 
         </div>
       )}
