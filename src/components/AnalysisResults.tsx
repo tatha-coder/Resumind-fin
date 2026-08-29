@@ -109,21 +109,21 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
       )}
 
       {/* 1. Scorecard Card */}
-      <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 sm:p-6 transition-colors">
+      <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 sm:p-6 transition-colors shadow-xs">
         
         {/* Header Ribbon */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-100 dark:border-slate-800">
           <div>
             <div className="flex items-center space-x-2">
-              <span className="px-2 py-0.5 text-[10px] font-bold uppercase bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 rounded">
+              <span className="px-2.5 py-0.5 text-[10px] font-bold uppercase bg-[#DBEAFE] text-[#1D4ED8] dark:bg-blue-950/70 dark:text-blue-300 rounded-md">
                 Audit Completed
               </span>
               <span className="text-xs text-slate-400 dark:text-slate-500">•</span>
-              <span className="text-xs font-semibold text-slate-600 dark:text-slate-300 truncate max-w-[220px] sm:max-w-xs">
+              <span className="text-xs font-semibold text-[#64748B] dark:text-slate-300 truncate max-w-[220px] sm:max-w-xs">
                 {analysis.pdfMeta?.filename || 'Uploaded Resume'}
               </span>
             </div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white mt-1">
+            <h2 className="text-xl font-bold text-[#0F172A] dark:text-white mt-1.5">
               ATS Compatibility & Content Scorecard
             </h2>
           </div>
@@ -131,7 +131,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
           <div className="flex items-center space-x-2">
             <button
               onClick={handleExportReport}
-              className="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold text-xs rounded-lg border border-slate-200 dark:border-slate-700 flex items-center space-x-1.5 transition-colors cursor-pointer"
+              className="px-3 py-1.5 bg-[#F8FAFC] dark:bg-slate-800 hover:bg-slate-200/70 dark:hover:bg-slate-700 text-[#334155] dark:text-slate-200 font-semibold text-xs rounded-lg border border-slate-200/80 dark:border-slate-700 flex items-center space-x-1.5 transition-colors cursor-pointer shadow-2xs"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export Report</span>
@@ -139,7 +139,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
             <button
               onClick={handlePrint}
-              className="p-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-lg border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer hidden sm:block"
+              className="p-2 bg-[#F8FAFC] dark:bg-slate-800 hover:bg-slate-200/70 dark:hover:bg-slate-700 text-[#334155] dark:text-slate-200 rounded-lg border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer hidden sm:block"
               title="Print scorecard"
             >
               <Printer className="w-3.5 h-3.5" />
@@ -151,7 +151,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center pt-5">
           
           {/* Main Score Gauge */}
-          <div className="lg:col-span-4 flex flex-col items-center justify-center p-5 bg-slate-50 dark:bg-[#161f33] rounded-lg border border-slate-200 dark:border-slate-700/80 text-center">
+          <div className="lg:col-span-4 flex flex-col items-center justify-center p-5 bg-[#F8FAFC] dark:bg-[#161616] rounded-xl border border-slate-200/80 dark:border-slate-800 text-center">
             
             <div className="relative w-28 h-28 flex items-center justify-center">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
@@ -167,7 +167,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
                   cx="60"
                   cy="60"
                   r="52"
-                  className={analysis.overallScore >= 80 ? 'stroke-emerald-500' : analysis.overallScore >= 60 ? 'stroke-amber-500' : 'stroke-rose-500'}
+                  className={analysis.overallScore >= 80 ? 'stroke-[#16A34A]' : analysis.overallScore >= 60 ? 'stroke-[#D97706]' : 'stroke-rose-500'}
                   strokeWidth="8"
                   strokeDasharray={326.7}
                   strokeDashoffset={326.7 - (326.7 * analysis.overallScore) / 100}
@@ -177,28 +177,28 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
               </svg>
 
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-3xl font-extrabold font-mono text-slate-900 dark:text-white tracking-tight">
+                <span className="text-3xl font-extrabold font-mono text-[#0F172A] dark:text-white tracking-tight">
                   {analysis.overallScore}
                 </span>
-                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                <span className="text-[10px] font-bold text-[#64748B] dark:text-slate-400 uppercase tracking-widest">
                   / 100
                 </span>
               </div>
             </div>
 
             <div className="mt-3 space-y-1">
-              <div className={`inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded text-xs font-semibold border ${
+              <div className={`inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-md text-xs font-semibold border ${
                 analysis.overallScore >= 80
-                  ? 'bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/70 text-[#16A34A] dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
                   : analysis.overallScore >= 60
-                  ? 'bg-amber-50 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800'
+                  ? 'bg-amber-50 dark:bg-amber-950/70 text-[#D97706] dark:text-amber-300 border-amber-200 dark:border-amber-800'
                   : 'bg-rose-50 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800'
               }`}>
                 <span>Grade: {gradeInfo.grade}</span>
                 <span>•</span>
                 <span>{gradeInfo.label}</span>
               </div>
-              <p className="text-xs text-slate-500 dark:text-slate-400 font-normal">
+              <p className="text-xs text-[#64748B] dark:text-slate-400 font-normal">
                 {gradeInfo.passRate}
               </p>
             </div>
@@ -207,10 +207,10 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
           {/* Metrics Matrix & Summary */}
           <div className="lg:col-span-8 space-y-4">
             <div>
-              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#64748B] dark:text-slate-400 mb-1">
                 Executive Synthesis
               </h3>
-              <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#334155] dark:text-slate-300 leading-relaxed font-normal">
                 {analysis.summary}
               </p>
             </div>
@@ -218,43 +218,43 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
             {/* 4 Dimension Matrix */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
               
-              <div className="bg-slate-50 dark:bg-[#161f33] p-3 rounded-lg border border-slate-200 dark:border-slate-700/80 space-y-1.5">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider block">ATS Parsing</span>
+              <div className="bg-[#F8FAFC] dark:bg-[#161616] p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1.5">
+                <span className="text-[10px] text-[#64748B] dark:text-slate-400 uppercase font-bold tracking-wider block">ATS Parsing</span>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-lg font-bold font-mono text-slate-900 dark:text-white tracking-tight">{analysis.atsScore}%</span>
+                  <span className="text-lg font-bold font-mono text-[#0F172A] dark:text-white tracking-tight">{analysis.atsScore}%</span>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${analysis.atsScore >= 80 ? 'bg-emerald-500' : analysis.atsScore >= 60 ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${analysis.atsScore}%` }} />
+                  <div className={`h-full rounded-full ${analysis.atsScore >= 80 ? 'bg-[#16A34A]' : analysis.atsScore >= 60 ? 'bg-[#D97706]' : 'bg-rose-500'}`} style={{ width: `${analysis.atsScore}%` }} />
                 </div>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#161f33] p-3 rounded-lg border border-slate-200 dark:border-slate-700/80 space-y-1.5">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider block">Impact & Metric</span>
+              <div className="bg-[#F8FAFC] dark:bg-[#161616] p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1.5">
+                <span className="text-[10px] text-[#64748B] dark:text-slate-400 uppercase font-bold tracking-wider block">Impact & Metric</span>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-lg font-bold font-mono text-slate-900 dark:text-white tracking-tight">{analysis.impactScore}%</span>
+                  <span className="text-lg font-bold font-mono text-[#0F172A] dark:text-white tracking-tight">{analysis.impactScore}%</span>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${analysis.impactScore >= 80 ? 'bg-emerald-500' : analysis.impactScore >= 60 ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${analysis.impactScore}%` }} />
+                  <div className={`h-full rounded-full ${analysis.impactScore >= 80 ? 'bg-[#16A34A]' : analysis.impactScore >= 60 ? 'bg-[#D97706]' : 'bg-rose-500'}`} style={{ width: `${analysis.impactScore}%` }} />
                 </div>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#161f33] p-3 rounded-lg border border-slate-200 dark:border-slate-700/80 space-y-1.5">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider block">Content Depth</span>
+              <div className="bg-[#F8FAFC] dark:bg-[#161616] p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1.5">
+                <span className="text-[10px] text-[#64748B] dark:text-slate-400 uppercase font-bold tracking-wider block">Content Depth</span>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-lg font-bold font-mono text-slate-900 dark:text-white tracking-tight">{analysis.contentScore}%</span>
+                  <span className="text-lg font-bold font-mono text-[#0F172A] dark:text-white tracking-tight">{analysis.contentScore}%</span>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${analysis.contentScore >= 80 ? 'bg-emerald-500' : analysis.contentScore >= 60 ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${analysis.contentScore}%` }} />
+                  <div className={`h-full rounded-full ${analysis.contentScore >= 80 ? 'bg-[#16A34A]' : analysis.contentScore >= 60 ? 'bg-[#D97706]' : 'bg-rose-500'}`} style={{ width: `${analysis.contentScore}%` }} />
                 </div>
               </div>
 
-              <div className="bg-slate-50 dark:bg-[#161f33] p-3 rounded-lg border border-slate-200 dark:border-slate-700/80 space-y-1.5">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider block">Role Keywords</span>
+              <div className="bg-[#F8FAFC] dark:bg-[#161616] p-3 rounded-xl border border-slate-200/80 dark:border-slate-800 space-y-1.5">
+                <span className="text-[10px] text-[#64748B] dark:text-slate-400 uppercase font-bold tracking-wider block">Role Keywords</span>
                 <div className="flex items-baseline justify-between">
-                  <span className="text-lg font-bold font-mono text-slate-900 dark:text-white tracking-tight">{analysis.keywordScore}%</span>
+                  <span className="text-lg font-bold font-mono text-[#0F172A] dark:text-white tracking-tight">{analysis.keywordScore}%</span>
                 </div>
                 <div className="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
-                  <div className={`h-full rounded-full ${analysis.keywordScore >= 80 ? 'bg-emerald-500' : analysis.keywordScore >= 60 ? 'bg-amber-500' : 'bg-rose-500'}`} style={{ width: `${analysis.keywordScore}%` }} />
+                  <div className={`h-full rounded-full ${analysis.keywordScore >= 80 ? 'bg-[#16A34A]' : analysis.keywordScore >= 60 ? 'bg-[#D97706]' : 'bg-rose-500'}`} style={{ width: `${analysis.keywordScore}%` }} />
                 </div>
               </div>
 
@@ -264,7 +264,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <button
                 onClick={onOpenJobMatch}
-                className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-semibold text-xs rounded-lg transition-colors flex items-center space-x-1.5 cursor-pointer"
+                className="px-3.5 py-2 bg-[#2563EB] hover:bg-blue-700 text-white font-semibold text-xs rounded-xl transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer"
               >
                 <Target className="w-3.5 h-3.5" />
                 <span>Tailor to Job Description</span>
@@ -272,7 +272,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
               <button
                 onClick={onOpenCoverLetter}
-                className="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs rounded-lg border border-slate-200 dark:border-slate-700 flex items-center space-x-1.5 transition-colors cursor-pointer"
+                className="px-3.5 py-2 bg-[#F8FAFC] dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[#334155] dark:text-slate-200 font-semibold text-xs rounded-xl border border-slate-200/80 dark:border-slate-700 flex items-center space-x-1.5 transition-colors cursor-pointer"
               >
                 <FileText className="w-3.5 h-3.5" />
                 <span>Draft Cover Letter</span>
@@ -280,7 +280,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
               <button
                 onClick={onOpenInterviewPrep}
-                className="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs rounded-lg border border-slate-200 dark:border-slate-700 flex items-center space-x-1.5 transition-colors cursor-pointer"
+                className="px-3.5 py-2 bg-[#F8FAFC] dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-[#334155] dark:text-slate-200 font-semibold text-xs rounded-xl border border-slate-200/80 dark:border-slate-700 flex items-center space-x-1.5 transition-colors cursor-pointer"
               >
                 <TrendingUp className="w-3.5 h-3.5" />
                 <span>Interview Q&A Guide</span>
@@ -293,13 +293,13 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
       </div>
 
       {/* 2. Navigation Tabs */}
-      <div className="flex bg-slate-100 dark:bg-[#111827] p-1 rounded-lg border border-slate-200 dark:border-slate-800 overflow-x-auto space-x-1 scrollbar-none">
+      <div className="flex bg-[#F8FAFC] dark:bg-[#121212] p-1 rounded-xl border border-slate-200/80 dark:border-slate-800 overflow-x-auto space-x-1 scrollbar-none">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`px-3.5 py-2 rounded-md text-xs font-semibold whitespace-nowrap transition-colors flex items-center space-x-1.5 cursor-pointer ${
+          className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 cursor-pointer ${
             activeTab === 'overview'
-              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs'
+              : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <FileCheck className="w-3.5 h-3.5" />
@@ -308,10 +308,10 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
         <button
           onClick={() => setActiveTab('atsChecks')}
-          className={`px-3.5 py-2 rounded-md text-xs font-semibold whitespace-nowrap transition-colors flex items-center space-x-1.5 cursor-pointer ${
+          className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 cursor-pointer ${
             activeTab === 'atsChecks'
-              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs'
+              : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <span>ATS Checklist ({analysis.atsChecks.length})</span>
@@ -319,10 +319,10 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
         <button
           onClick={() => setActiveTab('sections')}
-          className={`px-3.5 py-2 rounded-md text-xs font-semibold whitespace-nowrap transition-colors flex items-center space-x-1.5 cursor-pointer ${
+          className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 cursor-pointer ${
             activeTab === 'sections'
-              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs'
+              : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <Layers className="w-3.5 h-3.5" />
@@ -331,10 +331,10 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
         <button
           onClick={() => setActiveTab('skills')}
-          className={`px-3.5 py-2 rounded-md text-xs font-semibold whitespace-nowrap transition-colors flex items-center space-x-1.5 cursor-pointer ${
+          className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 cursor-pointer ${
             activeTab === 'skills'
-              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs'
+              : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <span>Extracted Skills</span>
@@ -342,10 +342,10 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
         <button
           onClick={() => setActiveTab('actionPlan')}
-          className={`px-3.5 py-2 rounded-md text-xs font-semibold whitespace-nowrap transition-colors flex items-center space-x-1.5 cursor-pointer ${
+          className={`px-3.5 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 cursor-pointer ${
             activeTab === 'actionPlan'
-              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs'
-              : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'bg-white dark:bg-slate-800 text-[#2563EB] dark:text-blue-400 shadow-2xs'
+              : 'text-[#334155] dark:text-slate-400 hover:text-[#0F172A] dark:hover:text-white'
           }`}
         >
           <TrendingUp className="w-3.5 h-3.5" />
@@ -358,7 +358,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
         <div className="grid md:grid-cols-2 gap-5">
           
           {/* Key Strengths */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-3">
+          <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-3">
             <div className="flex items-center space-x-2 text-emerald-700 dark:text-emerald-400">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <h3 className="font-bold text-sm text-slate-900 dark:text-white">Demonstrated Strengths</h3>
@@ -374,7 +374,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
           </div>
 
           {/* Critical Gaps */}
-          <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-3">
+          <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-3">
             <div className="flex items-center space-x-2 text-rose-700 dark:text-rose-400">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <h3 className="font-bold text-sm text-slate-900 dark:text-white">Identified Gaps & Optimization Risks</h3>
@@ -393,7 +393,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
       {/* Tab Content 2: ATS Compliance Checks */}
       {activeTab === 'atsChecks' && (
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4">
+        <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div>
               <h3 className="font-bold text-sm text-slate-900 dark:text-white">ATS Parsing & Formatting Standards</h3>
@@ -438,7 +438,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-300">{check.detail}</p>
                   {check.recommendation && (
-                    <div className="bg-slate-50 dark:bg-[#161f33] border border-slate-200 dark:border-slate-700 p-2.5 rounded text-[11px] text-slate-800 dark:text-slate-200 font-medium mt-1">
+                    <div className="bg-slate-50 dark:bg-[#161616] border border-slate-200 dark:border-slate-700 p-2.5 rounded text-[11px] text-slate-800 dark:text-slate-200 font-medium mt-1">
                       <strong>Fix:</strong> {check.recommendation}
                     </div>
                   )}
@@ -459,7 +459,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
       {activeTab === 'sections' && (
         <div className="space-y-4">
           {analysis.sections.map((section, idx) => (
-            <div key={idx} className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4">
+            <div key={idx} className="bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
                 <h3 className="font-bold text-sm text-slate-900 dark:text-white">
                   {section.sectionName}
@@ -477,7 +477,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
               {/* Feedback Points */}
               <div className="grid md:grid-cols-2 gap-3">
-                <div className="bg-slate-50 dark:bg-[#161f33] p-3 rounded-lg border border-slate-200 dark:border-slate-700 space-y-1.5">
+                <div className="bg-slate-50 dark:bg-[#161616] p-3 rounded-lg border border-slate-200 dark:border-slate-700 space-y-1.5">
                   <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Observations:</span>
                   <ul className="space-y-1 text-xs text-slate-700 dark:text-slate-300">
                     {section.feedback.map((f, i) => (
@@ -489,7 +489,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
                   </ul>
                 </div>
 
-                <div className="bg-slate-50 dark:bg-[#161f33] p-3 rounded-lg border border-slate-200 dark:border-slate-700 space-y-1.5">
+                <div className="bg-slate-50 dark:bg-[#161616] p-3 rounded-lg border border-slate-200 dark:border-slate-700 space-y-1.5">
                   <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Recommended Enhancements:</span>
                   <ul className="space-y-1 text-xs text-slate-700 dark:text-slate-300">
                     {section.suggestions.map((s, i) => (
@@ -510,13 +510,13 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
                   </h4>
 
                   {section.rewrites.map((rewrite, rIdx) => (
-                    <div key={rIdx} className="bg-slate-50 dark:bg-[#161f33] p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
+                    <div key={rIdx} className="bg-slate-50 dark:bg-[#161616] p-3.5 rounded-lg border border-slate-200 dark:border-slate-700 space-y-2">
                       <div>
                         <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">Original Bullet:</span>
                         <p className="text-xs text-slate-500 dark:text-slate-400 line-through mt-0.5">{rewrite.original}</p>
                       </div>
 
-                      <div className="bg-white dark:bg-[#111827] p-3 rounded border border-slate-200 dark:border-slate-700 space-y-1">
+                      <div className="bg-white dark:bg-[#0f0f0f] p-3 rounded border border-slate-200 dark:border-slate-700 space-y-1">
                         <div className="flex items-center justify-between">
                           <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-400 uppercase">
                             Quantified Rewrite:
@@ -551,7 +551,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
       {/* Tab Content 4: Skills Cloud */}
       {activeTab === 'skills' && (
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-5">
+        <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
             <div>
               <h3 className="font-bold text-sm text-slate-900 dark:text-white">Detected Skills Matrix</h3>
@@ -623,7 +623,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
       {/* Tab Content 5: Priority Fixes */}
       {activeTab === 'actionPlan' && (
-        <div className="bg-white dark:bg-[#111827] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4">
+        <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4">
           <div className="border-b border-slate-100 dark:border-slate-800 pb-3">
             <h3 className="font-bold text-sm text-slate-900 dark:text-white">
               Prioritized Optimization Action Plan
@@ -635,7 +635,7 @@ Contact: Tathagata Chakraborty (tathagatachakraborty1234@gmail.com)
 
           <div className="space-y-2.5">
             {analysis.actionableNextSteps.map((step, i) => (
-              <div key={i} className="flex items-start space-x-3 bg-slate-50 dark:bg-[#161f33] p-3.5 rounded-lg border border-slate-200 dark:border-slate-700">
+              <div key={i} className="flex items-start space-x-3 bg-slate-50 dark:bg-[#161616] p-3.5 rounded-lg border border-slate-200 dark:border-slate-700">
                 <span className="flex items-center justify-center w-6 h-6 rounded bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 font-bold text-xs shrink-0 mt-0.5">
                   {i + 1}
                 </span>
