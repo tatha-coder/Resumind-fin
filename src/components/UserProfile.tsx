@@ -143,62 +143,62 @@ export const UserProfile: React.FC<UserProfileProps> = ({
     <div className="max-w-5xl mx-auto space-y-6 animate-fade-in">
       
       {/* Creator Attribution & Contact Card */}
-      <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors shadow-xs">
+      <div className="bg-white border border-[#E8E4DC] rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors shadow-xs">
         <div className="flex items-center space-x-3.5">
-          <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+          <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
             TC
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h3 className="text-sm font-bold text-[#0F172A] dark:text-white">Platform Architect</h3>
-              <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 rounded-md">
+              <h3 className="text-sm font-bold text-[#1C1917]">Platform Architect</h3>
+              <span className="px-2 py-0.5 text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-md">
                 Verified Creator
               </span>
             </div>
-            <p className="text-xs text-[#334155] dark:text-slate-300 font-medium">
-              Architected by <strong className="text-[#0F172A] dark:text-white">Tathagata Chakraborty</strong>
+            <p className="text-xs text-[#57534E] font-medium">
+              Architected by <strong className="text-[#1C1917]">Tathagata Chakraborty</strong>
             </p>
           </div>
         </div>
         <a
           href="mailto:tathagatachakraborty1234@gmail.com"
-          className="px-3.5 py-2 bg-[#F8FAFC] dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 text-[#334155] dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
+          className="px-3.5 py-2 bg-[#FAF7F2] hover:bg-emerald-50 text-[#1C1917] border border-[#E8E4DC] rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
         >
-          <Mail className="w-3.5 h-3.5 text-emerald-600" />
+          <Mail className="w-3.5 h-3.5 text-emerald-700" />
           <span>tathagatachakraborty1234@gmail.com</span>
         </a>
       </div>
 
       {/* User Identity Summary */}
-      <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 transition-colors shadow-xs">
+      <div className="bg-white border border-[#E8E4DC] rounded-2xl p-6 transition-colors shadow-xs">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           
           <div className="flex items-center space-x-4">
             <img
               src={user.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
               alt={user.name}
-              className="w-14 h-14 rounded-xl bg-[#F8FAFC] dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 p-0.5 shrink-0"
+              className="w-14 h-14 rounded-xl bg-[#FAF7F2] border border-[#E8E4DC] p-0.5 shrink-0"
             />
             <div>
               <div className="flex items-center space-x-2">
-                <h1 className="text-lg font-bold text-[#0F172A] dark:text-white">{user.name}</h1>
-                <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
-                  <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                <h1 className="text-lg font-bold text-[#1C1917]">{user.name}</h1>
+                <span className="inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <ShieldCheck className="w-3 h-3 text-emerald-700" />
                   <span>Encrypted Session</span>
                 </span>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-xs text-[#64748B] dark:text-slate-400 font-medium">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-xs text-[#78716C] font-medium">
                 <div className="flex items-center space-x-1">
-                  <Mail className="w-3.5 h-3.5 text-slate-400" />
+                  <Mail className="w-3.5 h-3.5 text-stone-400" />
                   <span>{user.email}</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Briefcase className="w-3.5 h-3.5 text-slate-400" />
-                  <span className="text-[#0F172A] dark:text-slate-100 font-semibold">{user.targetRole || 'Software Professional'}</span>
+                  <Briefcase className="w-3.5 h-3.5 text-stone-400" />
+                  <span className="text-[#1C1917] font-semibold">{user.targetRole || 'Software Professional'}</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                  <Calendar className="w-3.5 h-3.5 text-stone-400" />
                   <span>Member since {new Date(user.createdAt).toLocaleDateString()}</span>
                 </div>
               </div>
@@ -207,7 +207,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
           <button
             onClick={() => setEditing(!editing)}
-            className="px-4 py-2 bg-[#F8FAFC] dark:bg-slate-800 hover:bg-emerald-50 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 text-[#0F172A] dark:text-slate-200 font-semibold text-xs rounded-xl transition-colors cursor-pointer"
+            className="px-4 py-2 bg-[#FAF7F2] hover:bg-emerald-50 border border-[#E8E4DC] text-[#1C1917] font-semibold text-xs rounded-xl transition-colors cursor-pointer"
           >
             {editing ? 'Cancel' : 'Edit Profile'}
           </button>
@@ -215,20 +215,20 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
         {/* Edit Form */}
         {editing && (
-          <form onSubmit={handleUpdateProfile} className="mt-5 pt-5 border-t border-slate-100 dark:border-slate-800 grid sm:grid-cols-2 gap-4">
+          <form onSubmit={handleUpdateProfile} className="mt-5 pt-5 border-t border-[#E8E4DC] grid sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-[#0F172A] dark:text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-[#1C1917] uppercase tracking-wider mb-1">
                 Full Name
               </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3.5 py-2 bg-[#F8FAFC] dark:bg-[#161616] border border-slate-200/80 dark:border-slate-700 rounded-xl text-xs font-medium text-[#0F172A] dark:text-slate-100 focus:outline-none focus:border-emerald-500 font-sans"
+                className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E8E4DC] rounded-xl text-xs font-medium text-[#1C1917] focus:outline-none focus:border-emerald-600 font-sans"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#0F172A] dark:text-slate-300 uppercase tracking-wider mb-1">
+              <label className="block text-xs font-bold text-[#1C1917] uppercase tracking-wider mb-1">
                 Target Role / Specialization
               </label>
               <input
@@ -236,7 +236,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
                 value={targetRole}
                 onChange={(e) => setTargetRole(e.target.value)}
                 placeholder="e.g. Senior Frontend Engineer"
-                className="w-full px-3.5 py-2 bg-[#F8FAFC] dark:bg-[#161616] border border-slate-200/80 dark:border-slate-700 rounded-xl text-xs font-medium text-[#0F172A] dark:text-slate-100 focus:outline-none focus:border-emerald-500 font-sans"
+                className="w-full px-3.5 py-2 bg-[#FAF7F2] border border-[#E8E4DC] rounded-xl text-xs font-medium text-[#1C1917] focus:outline-none focus:border-emerald-600 font-sans"
               />
             </div>
             <div className="sm:col-span-2 flex justify-end">
@@ -251,27 +251,27 @@ export const UserProfile: React.FC<UserProfileProps> = ({
         )}
 
         {saveSuccess && (
-          <div className="mt-4 p-3.5 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-xl text-xs text-emerald-800 dark:text-emerald-300 font-medium flex items-center space-x-2">
+          <div className="mt-4 p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs text-emerald-800 font-medium flex items-center space-x-2">
             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>Profile information updated successfully!</span>
           </div>
         )}
 
         {/* User Stats Grid */}
-        <div className="grid grid-cols-3 gap-3 mt-6 pt-5 border-t border-slate-100 dark:border-slate-800">
-          <div className="bg-[#F8FAFC] dark:bg-[#161616] p-4 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center space-y-0.5">
-            <p className="text-2xl font-extrabold font-mono text-[#0F172A] dark:text-white">{history.length}</p>
-            <p className="text-[10px] font-bold text-[#64748B] dark:text-slate-400 uppercase tracking-wider">Audits Completed</p>
+        <div className="grid grid-cols-3 gap-3 mt-6 pt-5 border-t border-[#E8E4DC]">
+          <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#E8E4DC] text-center space-y-0.5">
+            <p className="text-2xl font-extrabold font-mono text-[#1C1917]">{history.length}</p>
+            <p className="text-[10px] font-bold text-[#78716C] uppercase tracking-wider">Audits Completed</p>
           </div>
-          <div className="bg-[#F8FAFC] dark:bg-[#161616] p-4 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center space-y-0.5">
-            <p className={`text-2xl font-extrabold font-mono ${avgScore >= 80 ? 'text-emerald-600 dark:text-emerald-400' : 'text-[#0F172A] dark:text-white'}`}>
+          <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#E8E4DC] text-center space-y-0.5">
+            <p className={`text-2xl font-extrabold font-mono ${avgScore >= 80 ? 'text-emerald-700' : 'text-[#1C1917]'}`}>
               {avgScore ? `${avgScore}%` : '—'}
             </p>
-            <p className="text-[10px] font-bold text-[#64748B] dark:text-slate-400 uppercase tracking-wider">Average Score</p>
+            <p className="text-[10px] font-bold text-[#78716C] uppercase tracking-wider">Average Score</p>
           </div>
-          <div className="bg-[#F8FAFC] dark:bg-[#161616] p-4 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center space-y-0.5">
-            <p className="text-2xl font-extrabold font-mono text-emerald-600 dark:text-emerald-400">100%</p>
-            <p className="text-[10px] font-bold text-[#64748B] dark:text-slate-400 uppercase tracking-wider">Data Privacy</p>
+          <div className="bg-[#FAF7F2] p-4 rounded-xl border border-[#E8E4DC] text-center space-y-0.5">
+            <p className="text-2xl font-extrabold font-mono text-emerald-700">100%</p>
+            <p className="text-[10px] font-bold text-[#78716C] uppercase tracking-wider">Data Privacy</p>
           </div>
         </div>
       </div>
@@ -280,35 +280,35 @@ export const UserProfile: React.FC<UserProfileProps> = ({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-sm font-bold text-[#0F172A] dark:text-white flex items-center space-x-2">
-              <FileText className="w-4 h-4 text-emerald-600" />
+            <h2 className="text-sm font-bold text-[#1C1917] flex items-center space-x-2">
+              <FileText className="w-4 h-4 text-emerald-700" />
               <span>Saved Resume Audit Reports</span>
             </h2>
-            <p className="text-xs text-[#64748B] dark:text-slate-400">
+            <p className="text-xs text-[#78716C]">
               Only accessible to your authenticated account ({user.email}).
             </p>
           </div>
           <button
             onClick={fetchHistory}
-            className="px-3.5 py-1.5 bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 hover:bg-emerald-50 dark:hover:bg-[#161616] text-[#334155] dark:text-slate-200 rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer shadow-2xs"
+            className="px-3.5 py-1.5 bg-white border border-[#E8E4DC] hover:bg-emerald-50 text-[#57534E] rounded-xl text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer shadow-2xs"
           >
-            <RefreshCw className={`w-3.5 h-3.5 text-emerald-600 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 text-emerald-700 ${loading ? 'animate-spin' : ''}`} />
             <span>Refresh Vault</span>
           </button>
         </div>
 
         {loading ? (
-          <div className="p-10 text-center bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl">
+          <div className="p-10 text-center bg-white border border-[#E8E4DC] rounded-2xl">
             <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-            <p className="text-xs text-[#64748B] dark:text-slate-400 font-medium">Fetching resume vault...</p>
+            <p className="text-xs text-[#78716C] font-medium">Fetching resume vault...</p>
           </div>
         ) : history.length === 0 ? (
-          <div className="p-10 text-center bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl space-y-2">
-            <div className="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 rounded-full flex items-center justify-center mx-auto text-emerald-600 dark:text-emerald-400">
+          <div className="p-10 text-center bg-white border border-[#E8E4DC] rounded-2xl space-y-2">
+            <div className="w-10 h-10 bg-emerald-50 border border-emerald-200 rounded-full flex items-center justify-center mx-auto text-emerald-700">
               <FileText className="w-5 h-5" />
             </div>
-            <h3 className="text-sm font-bold text-[#0F172A] dark:text-white">No resume audits saved yet</h3>
-            <p className="text-xs text-[#64748B] dark:text-slate-400 max-w-sm mx-auto">
+            <h3 className="text-sm font-bold text-[#1C1917]">No resume audits saved yet</h3>
+            <p className="text-xs text-[#78716C] max-w-sm mx-auto">
               Upload and analyze any PDF resume from the main audit tab. Once analyzed, reports are automatically stored here.
             </p>
           </div>
@@ -318,36 +318,36 @@ export const UserProfile: React.FC<UserProfileProps> = ({
               <div
                 key={item.id}
                 onClick={() => handleLoadResume(item.id)}
-                className="group bg-white dark:bg-[#0f0f0f] hover:bg-slate-50 dark:hover:bg-[#161616] border border-slate-200/80 dark:border-slate-800 hover:border-emerald-400 dark:hover:border-emerald-600 p-5 rounded-2xl cursor-pointer transition-all shadow-xs"
+                className="group bg-white hover:bg-[#FAF7F2] border border-[#E8E4DC] hover:border-emerald-400 p-5 rounded-2xl cursor-pointer transition-all shadow-xs"
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-0.5">
-                    <h3 className="font-bold text-xs text-[#0F172A] dark:text-white flex items-center space-x-1.5">
+                    <h3 className="font-bold text-xs text-[#1C1917] flex items-center space-x-1.5">
                       <span className="truncate max-w-[180px]">{item.filename}</span>
-                      <ExternalLink className="w-3 h-3 text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ExternalLink className="w-3 h-3 text-emerald-700 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
-                    <p className="text-[11px] text-[#64748B] dark:text-slate-400 font-medium">
+                    <p className="text-[11px] text-[#78716C] font-medium">
                       {new Date(item.createdAt).toLocaleDateString()} • {Math.round(item.filesize / 1024)} KB • {item.pageCount} page(s)
                     </p>
                   </div>
 
                   <div className={`px-2.5 py-0.5 rounded-md text-xs font-bold shrink-0 border ${
                     item.overallScore >= 80 
-                      ? 'bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800'
+                      ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
                       : item.overallScore >= 65
-                      ? 'bg-amber-50 dark:bg-amber-950 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-800'
-                      : 'bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border-rose-200 dark:border-rose-800'
+                      ? 'bg-amber-50 text-amber-800 border-amber-200'
+                      : 'bg-rose-50 text-rose-700 border-rose-200'
                   }`}>
                     {item.overallScore}% ATS
                   </div>
                 </div>
 
-                <p className="text-xs text-[#334155] dark:text-slate-400 line-clamp-2 mt-3 bg-[#F8FAFC] dark:bg-[#161616] p-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700">
+                <p className="text-xs text-[#57534E] line-clamp-2 mt-3 bg-[#FAF7F2] p-2.5 rounded-xl border border-[#E8E4DC]">
                   {item.summary}
                 </p>
 
-                <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
-                  <span className="text-xs text-emerald-700 dark:text-emerald-400 font-bold group-hover:underline flex items-center space-x-1">
+                <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#E8E4DC]">
+                  <span className="text-xs text-emerald-700 font-bold group-hover:underline flex items-center space-x-1">
                     {loadingResumeId === item.id ? (
                       <span>Loading report...</span>
                     ) : (
@@ -357,7 +357,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
                   <button
                     onClick={(e) => handleDeleteResume(item.id, e)}
-                    className="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors cursor-pointer"
+                    className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                     title="Delete report"
                   >
                     <Trash2 className="w-3.5 h-3.5" />

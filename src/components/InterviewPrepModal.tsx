@@ -66,16 +66,16 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
     <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
       
       {/* Form Card */}
-      <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 transition-colors shadow-xs">
+      <div className="bg-white border border-[#E8E4DC] rounded-2xl p-6 transition-colors shadow-xs">
         <div className="flex items-center space-x-3 mb-2">
-          <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 rounded-xl text-emerald-600 dark:text-emerald-400 shrink-0 flex items-center justify-center font-bold">
+          <div className="w-10 h-10 bg-emerald-100 border border-emerald-200 rounded-xl text-emerald-700 shrink-0 flex items-center justify-center font-bold">
             <MessageSquare className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-bold text-[#0F172A] dark:text-white">
+            <h2 className="text-base font-bold text-[#1C1917]">
               Interview Preparation & STAR Response Strategy
             </h2>
-            <p className="text-xs text-[#64748B] dark:text-slate-400">
+            <p className="text-xs text-[#78716C]">
               Generates targeted behavioral and technical interview questions based directly on your audited experience ({analysis.pdfMeta?.filename}).
             </p>
           </div>
@@ -83,24 +83,24 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
 
         <form onSubmit={handleGenerate} className="mt-5 space-y-4">
           <div>
-            <label className="block text-xs font-bold text-[#0F172A] dark:text-slate-300 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[#1C1917] uppercase tracking-wider mb-1">
               Target Position / Role Title
             </label>
             <div className="relative">
-              <Briefcase className="w-4 h-4 text-[#64748B] absolute left-3.5 top-3" />
+              <Briefcase className="w-4 h-4 text-[#78716C] absolute left-3.5 top-3" />
               <input
                 type="text"
                 required
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
                 placeholder="e.g. Staff Software Engineer"
-                className="w-full pl-10 pr-3 py-2 bg-[#F8FAFC] dark:bg-[#161616] border border-slate-200/80 dark:border-slate-700 rounded-xl text-xs font-medium text-[#0F172A] dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-500 font-sans"
+                className="w-full pl-10 pr-3 py-2 bg-[#FAF7F2] border border-[#E8E4DC] rounded-xl text-xs font-medium text-[#1C1917] placeholder-stone-400 focus:outline-none focus:border-emerald-600 font-sans"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-[#0F172A] dark:text-slate-300 uppercase tracking-wider mb-1">
+            <label className="block text-xs font-bold text-[#1C1917] uppercase tracking-wider mb-1">
               Job Description or Key Focus Areas (Optional)
             </label>
             <textarea
@@ -108,12 +108,12 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
               value={jobDescriptionText}
               onChange={(e) => setJobDescriptionText(e.target.value)}
               placeholder="e.g. Large-scale distributed systems, architectural trade-offs, team mentorship..."
-              className="w-full p-3 bg-[#F8FAFC] dark:bg-[#161616] border border-slate-200/80 dark:border-slate-700 rounded-xl text-xs text-[#0F172A] dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-500 font-mono"
+              className="w-full p-3 bg-[#FAF7F2] border border-[#E8E4DC] rounded-xl text-xs text-[#1C1917] placeholder-stone-400 focus:outline-none focus:border-emerald-600 font-mono"
             />
           </div>
 
           {error && (
-            <div className="p-3 bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 rounded-xl text-xs text-rose-700 dark:text-rose-300 flex items-center justify-center space-x-2 font-medium">
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs text-rose-700 flex items-center justify-center space-x-2 font-medium">
               <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
               <span>{error}</span>
             </div>
@@ -145,7 +145,7 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
       {questions.length > 0 && (
         <div className="space-y-4 animate-fade-in">
           <div className="flex items-center justify-between">
-            <h3 className="font-bold text-sm text-[#0F172A] dark:text-white">
+            <h3 className="font-bold text-sm text-[#1C1917]">
               Tailored Interview Questions & Response Formulation ({questions.length})
             </h3>
           </div>
@@ -154,52 +154,52 @@ export const InterviewPrepModal: React.FC<InterviewPrepModalProps> = ({ analysis
             {questions.map((q, idx) => (
               <div 
                 key={idx} 
-                className="bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-2xl overflow-hidden transition-colors shadow-xs"
+                className="bg-white border border-[#E8E4DC] rounded-2xl overflow-hidden transition-colors shadow-xs"
               >
                 <button
                   onClick={() => setOpenIdx(openIdx === idx ? null : idx)}
-                  className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-slate-50 dark:hover:bg-[#161616] transition-colors cursor-pointer"
+                  className="w-full p-4 text-left flex items-start justify-between gap-3 hover:bg-[#FAF7F2] transition-colors cursor-pointer"
                 >
                   <div className="space-y-1.5">
                     <div className="flex items-center space-x-2">
-                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                      <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 border border-emerald-200">
                         {q.type}
                       </span>
-                      <span className="text-xs font-semibold text-[#64748B] dark:text-slate-400">Question {idx + 1}</span>
+                      <span className="text-xs font-semibold text-[#78716C]">Question {idx + 1}</span>
                     </div>
-                    <p className="text-sm font-bold text-[#0F172A] dark:text-white leading-snug">{q.question}</p>
+                    <p className="text-sm font-bold text-[#1C1917] leading-snug">{q.question}</p>
                   </div>
 
                   {openIdx === idx ? (
-                    <ChevronUp className="w-4 h-4 text-[#64748B] shrink-0 mt-1" />
+                    <ChevronUp className="w-4 h-4 text-[#78716C] shrink-0 mt-1" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-[#64748B] shrink-0 mt-1" />
+                    <ChevronDown className="w-4 h-4 text-[#78716C] shrink-0 mt-1" />
                   )}
                 </button>
 
                 {openIdx === idx && (
-                  <div className="p-4 bg-[#F8FAFC] dark:bg-[#161616] border-t border-slate-200/80 dark:border-slate-800 space-y-3.5">
-                    <div className="text-xs text-[#334155] dark:text-slate-300 font-medium bg-white dark:bg-[#0f0f0f] p-3 rounded-xl border border-slate-200/80 dark:border-slate-700">
-                      <strong className="font-bold text-[#0F172A] dark:text-white">Interviewer Intent:</strong> {q.context}
+                  <div className="p-4 bg-[#FAF7F2] border-t border-[#E8E4DC] space-y-3.5">
+                    <div className="text-xs text-[#44403C] font-medium bg-white p-3 rounded-xl border border-[#E8E4DC]">
+                      <strong className="font-bold text-[#1C1917]">Interviewer Intent:</strong> {q.context}
                     </div>
 
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-bold text-[#64748B] dark:text-slate-400 uppercase tracking-wider">
+                        <span className="text-[10px] font-bold text-[#78716C] uppercase tracking-wider">
                           Key Talking Points (STAR Method):
                         </span>
                         <button
                           onClick={() => handleCopy(q.idealAnswerKeypoints.join('\n• '), `q_${idx}`)}
-                          className="text-[11px] text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300 flex items-center space-x-1 font-semibold cursor-pointer"
+                          className="text-[11px] text-emerald-700 hover:text-emerald-800 flex items-center space-x-1 font-semibold cursor-pointer"
                         >
-                          {copiedId === `q_${idx}` ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
+                          {copiedId === `q_${idx}` ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3 text-emerald-700" />}
                           <span>Copy Strategy</span>
                         </button>
                       </div>
 
                       <ul className="space-y-2">
                         {q.idealAnswerKeypoints.map((kp, kIdx) => (
-                          <li key={kIdx} className="flex items-start space-x-2.5 text-xs text-[#334155] dark:text-slate-300 font-medium bg-white dark:bg-[#0f0f0f] p-3 rounded-xl border border-slate-200/80 dark:border-slate-700">
+                          <li key={kIdx} className="flex items-start space-x-2.5 text-xs text-[#44403C] font-medium bg-white p-3 rounded-xl border border-[#E8E4DC]">
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{kp}</span>
                           </li>

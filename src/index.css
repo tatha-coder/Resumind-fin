@@ -8,6 +8,31 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-madinah: 'Madinah', 'Madina', 'Madina Script', 'Madinah Script', 'Alex Brush', 'Great Vibes', 'Sacramento', cursive;
+
+  /* Sea Green Palette (Authentic SeaGreen #2E8B57 & LightSeaGreen #20B2AA) */
+  --color-emerald-50: #f0fdf8;
+  --color-emerald-100: #d1fae9;
+  --color-emerald-200: #a7f3d3;
+  --color-emerald-300: #5eead4;
+  --color-emerald-400: #20b2aa;
+  --color-emerald-500: #1ba098;
+  --color-emerald-600: #2e8b57;
+  --color-emerald-700: #246e45;
+  --color-emerald-800: #1b5536;
+  --color-emerald-900: #15442b;
+  --color-emerald-950: #092618;
+
+  --color-seagreen-50: #f0fdf8;
+  --color-seagreen-100: #d1fae9;
+  --color-seagreen-200: #a7f3d3;
+  --color-seagreen-300: #5eead4;
+  --color-seagreen-400: #20b2aa;
+  --color-seagreen-500: #1ba098;
+  --color-seagreen-600: #2e8b57;
+  --color-seagreen-700: #246e45;
+  --color-seagreen-800: #1b5536;
+  --color-seagreen-900: #15442b;
+  --color-seagreen-950: #092618;
 }
 
 @layer base {
@@ -18,7 +43,16 @@
   }
 
   body {
-    @apply antialiased text-slate-900 dark:text-slate-100 bg-slate-50 dark:bg-black;
+    @apply antialiased text-[#1C1917];
+    background-color: #F6F1EA;
+    background-image: 
+      /* Subtle overall soft ambient light across the whole viewport */
+      radial-gradient(120% 120% at 50% 20%, rgba(255, 255, 255, 0.5) 0%, rgba(246, 241, 234, 0.2) 60%, rgba(230, 220, 204, 0.35) 100%),
+      /* Truly seamless micro-noise paper grain with stitchTiles to eliminate all tiling seams/lines */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix type='matrix' values='0.78 0 0 0 0.12  0 0.73 0 0 0.10  0 0 0.65 0 0.08  0 0 0 0.045 0' in='noise'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: no-repeat, repeat;
+    background-size: 100% 100%, 300px 300px;
+    background-attachment: fixed, fixed;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-weight: 400;
     letter-spacing: -0.011em;
@@ -85,7 +119,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-300 dark:bg-slate-700 rounded-sm hover:bg-slate-400 dark:hover:bg-slate-600;
+  @apply bg-stone-300 rounded-sm hover:bg-stone-400;
 }
 
 /* Crisp subtle fade-in */

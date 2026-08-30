@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { AuthModal } from './components/AuthModal';
 import { AboutModal } from './components/AboutModal';
-import { AtsReviewSection } from './components/AtsReviewSection';
+import { HomeSection } from './components/HomeSection';
 import { UserProfile } from './components/UserProfile';
 import { PdfUploader } from './components/PdfUploader';
 import { AnalysisResults } from './components/AnalysisResults';
@@ -22,32 +22,11 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [aboutModalOpen, setAboutModalOpen] = useState(false);
   
-  const [activeTab, setActiveTab] = useState<'analyzer' | 'atsReview' | 'jobMatch' | 'coverLetter' | 'interviewPrep' | 'profile'>('analyzer');
+  const [activeTab, setActiveTab] = useState<'home' | 'analyzer' | 'jobMatch' | 'coverLetter' | 'interviewPrep' | 'profile'>('home');
   
   const [targetRole, setTargetRole] = useState('Senior Software Engineer');
   const [loading, setLoading] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
-
-  // Dark / Light Theme state
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    const saved = localStorage.getItem('resumind_theme');
-    if (saved === 'dark' || saved === 'light') return saved;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  });
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('resumind_theme', theme);
-  }, [theme]);
-
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
 
   // Initialize and listen to Supabase Auth state & local session
   useEffect(() => {
@@ -165,7 +144,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-black text-[#0F172A] dark:text-slate-100 flex flex-col font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-transparent text-[#1C1917] flex flex-col font-sans transition-colors duration-200">
       
       {/* Navigation Bar */}
       <Navbar
@@ -176,8 +155,6 @@ export default function App() {
         onOpenAboutModal={() => setAboutModalOpen(true)}
         onLogout={handleLogout}
         hasAnalyzedResume={!!analysisResult}
-        theme={theme}
-        onToggleTheme={handleToggleTheme}
       />
 
       {/* Main Container */}
@@ -185,14 +162,14 @@ export default function App() {
         
         {/* User Session Banner or Guest Callout */}
         {!user ? (
-          <div className="bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors shadow-xs">
+          <div className="bg-white/85 backdrop-blur-xs border border-[#E5DDD0] rounded-xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 transition-colors shadow-xs">
             <div className="flex items-center space-x-3.5">
-              <div className="w-9 h-9 bg-emerald-100 dark:bg-emerald-950/60 rounded-lg text-emerald-600 dark:text-emerald-400 shrink-0 flex items-center justify-center font-bold">
-                <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              <div className="w-9 h-9 bg-emerald-100/90 rounded-lg text-emerald-700 shrink-0 flex items-center justify-center font-bold">
+                <ShieldCheck className="w-5 h-5 text-emerald-700" />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-[#0F172A] dark:text-white">Confidential Profile & Isolated Resume Storage</h2>
-                <p className="text-xs text-[#64748B] dark:text-slate-400">
+                <h2 className="text-sm font-bold text-[#1C1917]">Confidential Profile & Isolated Resume Storage</h2>
+                <p className="text-xs text-[#78716C]">
                   Each authenticated account gets isolated resume audit histories, private cover letter records, and customized target role baselines.
                 </p>
               </div>
@@ -207,14 +184,14 @@ export default function App() {
             </button>
           </div>
         ) : (
-          <div className="flex items-center justify-between bg-white dark:bg-[#0f0f0f] border border-slate-200/80 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs text-[#64748B] dark:text-slate-300 transition-colors shadow-xs">
+          <div className="flex items-center justify-between bg-white/85 backdrop-blur-xs border border-[#E5DDD0] rounded-xl px-4 py-2.5 text-xs text-[#78716C] transition-colors shadow-xs">
             <div className="flex items-center space-x-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>Active session: <strong className="text-[#0F172A] dark:text-white font-semibold">{user.name}</strong> ({user.email})</span>
+              <span>Active session: <strong className="text-[#1C1917] font-semibold">{user.name}</strong> ({user.email})</span>
             </div>
             <button
               onClick={() => setActiveTab('profile')}
-              className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold cursor-pointer"
+              className="text-emerald-700 hover:text-emerald-800 hover:underline font-semibold cursor-pointer"
             >
               Saved Audits →
             </button>
@@ -223,57 +200,38 @@ export default function App() {
 
         {/* Tab View Routing */}
 
-        {/* TAB 1: Main Analyzer */}
+        {/* TAB 1: Home (Dedicated Description & Value Overview) */}
+        {activeTab === 'home' && (
+          <HomeSection
+            onStartAudit={() => setActiveTab('analyzer')}
+            onLoadSample={(sample) => {
+              setAnalysisResult(sample);
+              setActiveTab('analyzer');
+            }}
+            onOpenAuthModal={() => setAuthModalOpen(true)}
+            userLoggedIn={!!user}
+          />
+        )}
+
+        {/* TAB 2: Combined Audit, Score & ATS Review Window */}
         {activeTab === 'analyzer' && (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in">
             
-            {/* HERO SECTION */}
+            {/* Header banner for the unified workspace */}
             {!analysisResult && (
-              <div className="text-center max-w-3xl mx-auto space-y-4 pt-4 pb-2">
-                
-                {/* Author Badge & About trigger */}
-                <div className="inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-[#121212] border border-slate-200/80 dark:border-slate-800 text-[#64748B] dark:text-slate-300 text-xs font-medium shadow-xs">
-                  <span>Created by Tathagata Chakraborty</span>
-                  <span className="text-slate-300 dark:text-slate-700">•</span>
-                  <button
-                    onClick={() => setAboutModalOpen(true)}
-                    className="flex items-center space-x-1 text-emerald-600 dark:text-emerald-400 hover:underline font-semibold cursor-pointer"
-                  >
-                    <Info className="w-3.5 h-3.5" />
-                    <span>What is ResuMind?</span>
-                  </button>
+              <div className="text-center max-w-3xl mx-auto space-y-3 pt-2 pb-2">
+                <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-emerald-100/90 text-emerald-800 border border-emerald-200 text-xs font-semibold">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Unified ATS & Resume Diagnostic Engine</span>
                 </div>
 
-                {/* Hero Title with requested Highlight */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] dark:text-white tracking-tight leading-tight">
-                  <span className="font-madinah font-normal text-4xl sm:text-5xl md:text-6xl tracking-normal text-[#0F172A] dark:text-slate-100 block sm:inline-block sm:mr-2">
-                    Your resume gets one chance.
-                  </span>{' '}
-                  <span className="text-emerald-600 dark:text-emerald-400 inline-block font-extrabold font-heading">
-                    Make it count.
-                  </span>
+                <h1 className="text-2xl sm:text-4xl font-extrabold text-[#1C1917] tracking-tight">
+                  Comprehensive Resume Audit & ATS Review
                 </h1>
 
-                {/* Hero Subtitle */}
-                <p className="text-sm sm:text-base text-[#334155] dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
-                  ResuMind is your smart resume companion that analyzes your resume, identifies strengths and weaknesses, checks ATS compatibility, and gives you practical recommendations to make your resume stronger.
+                <p className="text-xs sm:text-sm text-[#57534E] max-w-2xl mx-auto leading-relaxed">
+                  Upload your PDF resume below to trigger an instant 360° audit: complete ATS parsing scores, format compatibility checks, keyword density analysis, and quantifiable bullet rewrites in one unified view.
                 </p>
-
-                {/* 3 Quick Benefit Badges */}
-                <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
-                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-900/60">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span>ATS Parsability Audit</span>
-                  </span>
-                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-teal-50 text-teal-800 dark:bg-teal-950/60 dark:text-teal-300 border border-teal-200/60 dark:border-teal-900/60">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400" />
-                    <span>Keyword Density Diagnostic</span>
-                  </span>
-                  <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200/60 dark:border-amber-900/60">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
-                    <span>Actionable Recommendations</span>
-                  </span>
-                </div>
               </div>
             )}
 
@@ -288,7 +246,7 @@ export default function App() {
               onReset={handleResetUpload}
             />
 
-            {/* Deep Analysis Results */}
+            {/* Deep Analysis Results & Combined ATS Scorecard */}
             {analysisResult && (
               <AnalysisResults
                 analysis={analysisResult}
@@ -299,17 +257,6 @@ export default function App() {
             )}
 
           </div>
-        )}
-
-        {/* TAB 2: ATS Review (Dedicated Option) */}
-        {activeTab === 'atsReview' && (
-          <AtsReviewSection
-            analysis={analysisResult}
-            onNavigateToUpload={() => setActiveTab('analyzer')}
-            onLoadSample={(sample) => {
-              setAnalysisResult(sample);
-            }}
-          />
         )}
 
         {/* TAB 3: Job Matcher & Tailor */}
@@ -349,28 +296,28 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-slate-200/80 dark:border-slate-800 bg-white dark:bg-black py-6 text-xs text-[#64748B] dark:text-slate-400 transition-colors">
+      <footer className="mt-auto border-t border-[#E5DDD0] bg-white/80 backdrop-blur-xs py-6 text-xs text-[#78716C] transition-colors">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
-            <span className="font-bold text-[#0F172A] dark:text-white">ResuMind</span>
+            <span className="font-bold text-[#1C1917]">ResuMind</span>
             <span>•</span>
-            <p className="font-medium text-[#64748B] dark:text-slate-400">Professional Career SaaS & ATS Benchmark Platform</p>
+            <p className="font-medium text-[#78716C]">Professional Career SaaS & ATS Benchmark Platform</p>
           </div>
           
           <div className="flex flex-wrap items-center justify-center gap-3">
             <button
               onClick={() => setAboutModalOpen(true)}
-              className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold cursor-pointer"
+              className="text-emerald-700 hover:text-emerald-800 hover:underline font-semibold cursor-pointer"
             >
               What is ResuMind?
             </button>
             <SupabaseBadge />
-            <div className="flex items-center space-x-2 text-[11px] text-[#334155] dark:text-slate-300 font-medium bg-[#F8FAFC] dark:bg-[#121212] px-3 py-1 rounded-lg border border-slate-200/80 dark:border-slate-800">
-              <span>Contact: <strong className="text-[#0F172A] dark:text-white font-semibold">Tathagata Chakraborty</strong></span>
+            <div className="flex items-center space-x-2 text-[11px] text-[#44403C] font-medium bg-[#F6F1EA]/90 px-3 py-1 rounded-lg border border-[#E5DDD0]">
+              <span>Contact: <strong className="text-[#1C1917] font-semibold">Tathagata Chakraborty</strong></span>
               <span>•</span>
               <a
                 href="mailto:tathagatachakraborty1234@gmail.com"
-                className="text-emerald-600 dark:text-emerald-400 hover:underline flex items-center space-x-1 font-semibold"
+                className="text-emerald-700 hover:text-emerald-800 hover:underline flex items-center space-x-1 font-semibold"
               >
                 <Mail className="w-3 h-3" />
                 <span>tathagatachakraborty1234@gmail.com</span>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <defs>
+    <!-- Multi-layered organic paper fiber and watercolor mottling -->
+    <filter id="parchment-texture" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">
+      <!-- Fine paper grain & fibrous flecks -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" seed="142" result="grain" />
+      <feColorMatrix type="matrix" values="
+        0 0 0 0 0.82
+        0 0 0 0 0.76
+        0 0 0 0 0.67
+        0 0 0 0.18 0" in="grain" result="tintedGrain" />
+
+      <!-- Broad watercolor washes and cloud splatters -->
+      <feTurbulence type="turbulence" baseFrequency="0.006" numOctaves="4" seed="48" result="clouds" />
+      <feColorMatrix type="matrix" values="
+        0 0 0 0 0.94
+        0 0 0 0 0.89
+        0 0 0 0 0.80
+        0 0 0 0.28 0" in="clouds" result="tintedClouds" />
+
+      <!-- Distressed plaster spots and water rings -->
+      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="89" result="stains" />
+      <feColorMatrix type="matrix" values="
+        0 0 0 0 0.75
+        0 0 0 0 0.68
+        0 0 0 0 0.58
+        0 0 0 0.12 0" in="stains" result="tintedStains" />
+
+      <!-- Merge all texture layers -->
+      <feMerge>
+        <feMergeNode in="tintedClouds" />
+        <feMergeNode in="tintedGrain" />
+        <feMergeNode in="tintedStains" />
+      </feMerge>
+    </filter>
+
+    <!-- Watercolor wash radial gradients -->
+    <radialGradient id="wash1" cx="25%" cy="20%" r="65%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85" />
+      <stop offset="50%" stop-color="#F7F1E6" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#EDE3D2" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="wash2" cx="80%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="#E5D9C4" stop-opacity="0.5" />
+      <stop offset="60%" stop-color="#EFE6D5" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#F5EEE0" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="wash3" cx="30%" cy="80%" r="60%">
+      <stop offset="0%" stop-color="#DFD2BC" stop-opacity="0.45" />
+      <stop offset="55%" stop-color="#EBE1D0" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#F7F2E8" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="wash4" cx="75%" cy="85%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.75" />
+      <stop offset="60%" stop-color="#F9F5EC" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#ECE2D0" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Base warm antique paper canvas -->
+  <rect width="100%" height="100%" fill="#F5EFEB" />
+
+  <!-- Watercolor wash layers -->
+  <rect width="100%" height="100%" fill="url(#wash1)" />
+  <rect width="100%" height="100%" fill="url(#wash2)" />
+  <rect width="100%" height="100%" fill="url(#wash3)" />
+  <rect width="100%" height="100%" fill="url(#wash4)" />
+
+  <!-- Procedural texture & flecks filter overlay -->
+  <rect width="100%" height="100%" filter="url(#parchment-texture)" />
+</svg>
