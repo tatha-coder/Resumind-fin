@@ -93,7 +93,7 @@ export const HomeSection: React.FC<HomeSectionProps> = ({
         >
           <span className="flex items-center space-x-1 text-emerald-800 font-semibold">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-            <span>ResuMind Intelligence Platform</span>
+            <span>Resu<span className="text-[#059669]">Mind</span> Intelligence Platform</span>
           </span>
           <span className="text-stone-300">•</span>
           <span>Crafted by <strong>Tathagata Chakraborty</strong></span>

@@ -42,16 +42,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="flex items-center space-x-3 cursor-pointer group shrink-0"
           onClick={() => setActiveTab('home')}
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-700 to-emerald-500 text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-xs">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-xs ring-1 ring-emerald-500/20 group-hover:scale-105 transition-transform">
             RM
           </div>
           <div>
             <div className="flex items-center space-x-2">
               <span className="font-bold text-base tracking-tight text-[#1C1917]">
-                ResuMind
-              </span>
-              <span className="px-1.5 py-0.5 text-[10px] font-bold bg-emerald-100/90 text-emerald-800 rounded border border-emerald-200/80">
-                PRO
+                Resu<span className="text-[#059669]">Mind</span>
               </span>
             </div>
             <p className="text-[11px] text-[#78716C] font-normal hidden sm:block">

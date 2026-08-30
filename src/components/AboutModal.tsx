@@ -31,16 +31,16 @@ export const AboutModal: React.FC<AboutModalProps> = ({
           </button>
 
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-700 text-white flex items-center justify-center font-bold text-sm shadow-xs">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white flex items-center justify-center font-bold text-sm shadow-xs ring-1 ring-emerald-500/20">
               RM
             </div>
             <div>
               <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200/60">
-                <Sparkles className="w-3 h-3" />
+                <Sparkles className="w-3 h-3 text-emerald-600" />
                 <span>Career Diagnostic Platform</span>
               </span>
               <h2 className="text-xl font-bold text-[#1C1917] tracking-tight mt-1">
-                What is ResuMind?
+                What is Resu<span className="text-[#059669]">Mind</span>?
               </h2>
             </div>
           </div>

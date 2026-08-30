@@ -11,7 +11,7 @@ import { CoverLetterModal } from './components/CoverLetterModal';
 import { InterviewPrepModal } from './components/InterviewPrepModal';
 import { SupabaseBadge } from './components/SupabaseBadge';
 import { User, AnalysisResult } from './types';
-import { ShieldCheck, Mail, UserPlus, Sparkles, Info, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Mail, UserPlus, Sparkles, Info, CheckCircle2, Github, ExternalLink } from 'lucide-react';
 import { supabase, mapSupabaseUser } from './lib/supabase';
 import { safeFetchJson } from './lib/api';
 import { SAMPLE_RESUMES } from './lib/sampleResumes';
@@ -296,30 +296,63 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-[#E5DDD0] bg-white/80 backdrop-blur-xs py-6 text-xs text-[#78716C] transition-colors">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-3">
-            <span className="font-bold text-[#1C1917]">ResuMind</span>
-            <span>•</span>
-            <p className="font-medium text-[#78716C]">Professional Career SaaS & ATS Benchmark Platform</p>
+      <footer className="mt-auto border-t border-stone-800 bg-[#1C1917] text-stone-300 py-10 sm:py-12 transition-colors">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          {/* Top Row: Brand & GitHub Button */}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-stone-800">
+            <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white flex items-center justify-center font-bold text-sm tracking-wider shadow-sm ring-1 ring-emerald-500/20">
+                RM
+              </div>
+              <div>
+                <div className="flex items-center justify-center sm:justify-start space-x-2">
+                  <span className="font-extrabold text-lg text-white tracking-tight">
+                    Resu<span className="text-[#10B981]">Mind</span>
+                  </span>
+                </div>
+                <p className="text-xs text-stone-400 mt-0.5">
+                  AI-Powered Resume Diagnostic & ATS Optimization Platform
+                </p>
+              </div>
+            </div>
+
+            {/* GitHub Repository Action Button */}
+            <div className="flex items-center space-x-3">
+              <a
+                href="https://github.com/tatha-coder/Resumind-fin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-2.5 px-5 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-700 active:bg-stone-900 text-white text-xs font-semibold border border-stone-700 transition-all shadow-xs group cursor-pointer hover:border-emerald-500/50"
+              >
+                <Github className="w-4 h-4 text-stone-200 group-hover:scale-110 group-hover:text-emerald-400 transition-all" />
+                <span>GitHub Repository</span>
+                <ExternalLink className="w-3.5 h-3.5 text-stone-400 group-hover:text-white transition-colors" />
+              </a>
+            </div>
           </div>
-          
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <button
-              onClick={() => setAboutModalOpen(true)}
-              className="text-emerald-700 hover:text-emerald-800 hover:underline font-semibold cursor-pointer"
-            >
-              What is ResuMind?
-            </button>
-            <SupabaseBadge />
-            <div className="flex items-center space-x-2 text-[11px] text-[#44403C] font-medium bg-[#F6F1EA]/90 px-3 py-1 rounded-lg border border-[#E5DDD0]">
-              <span>Contact: <strong className="text-[#1C1917] font-semibold">Tathagata Chakraborty</strong></span>
-              <span>•</span>
+
+          {/* Bottom Row: Details, Badges & Contact */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-stone-400">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <span>Crafted by <strong className="text-stone-200 font-semibold">Tathagata Chakraborty</strong></span>
+              <span className="text-stone-600">•</span>
+              <button
+                onClick={() => setAboutModalOpen(true)}
+                className="text-emerald-400 hover:text-emerald-300 hover:underline font-semibold cursor-pointer"
+              >
+                What is Resu<span className="text-[#10B981]">Mind</span>?
+              </button>
+              <span className="text-stone-600">•</span>
+              <SupabaseBadge />
+            </div>
+
+            <div className="flex items-center space-x-2 text-xs text-stone-300 bg-stone-800/80 px-3.5 py-1.5 rounded-lg border border-stone-700/60">
+              <span className="text-stone-400">Contact:</span>
               <a
                 href="mailto:tathagatachakraborty1234@gmail.com"
-                className="text-emerald-700 hover:text-emerald-800 hover:underline flex items-center space-x-1 font-semibold"
+                className="text-emerald-400 hover:text-emerald-300 hover:underline flex items-center space-x-1.5 font-medium"
               >
-                <Mail className="w-3 h-3" />
+                <Mail className="w-3.5 h-3.5 text-emerald-400" />
                 <span>tathagatachakraborty1234@gmail.com</span>
               </a>
             </div>
