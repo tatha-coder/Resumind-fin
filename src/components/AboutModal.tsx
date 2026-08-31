@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, CheckCircle2, ShieldCheck, Sparkles, Target, ArrowRight, Layers, FileCheck } from 'lucide-react';
+import { X, CheckCircle2, ShieldCheck, Sparkles, Target, ArrowRight, Layers, FileCheck, BrainCircuit } from 'lucide-react';
 
 interface AboutModalProps {
   isOpen: boolean;
@@ -31,8 +31,8 @@ export const AboutModal: React.FC<AboutModalProps> = ({
           </button>
 
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white flex items-center justify-center font-bold text-sm shadow-xs ring-1 ring-emerald-500/20">
-              RM
+            <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-600 shadow-xs">
+              <BrainCircuit className="w-5 h-5" />
             </div>
             <div>
               <span className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200/60">

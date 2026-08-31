@@ -86,17 +86,15 @@ export const HomeSection: React.FC<HomeSectionProps> = ({
         className="text-center max-w-4xl mx-auto space-y-5 pt-4"
       >
         
-        {/* Creator & Platform Badge */}
+        {/* Platform Badge */}
         <motion.div 
           variants={popIn} 
-          className="inline-flex flex-wrap items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#E5DDD0] text-[#78716C] text-xs font-medium shadow-xs"
+          className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#E5DDD0] text-[#78716C] text-xs font-medium shadow-xs"
         >
           <span className="flex items-center space-x-1 text-emerald-800 font-semibold">
             <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             <span>Resu<span className="text-[#059669]">Mind</span> Intelligence Platform</span>
           </span>
-          <span className="text-stone-300">•</span>
-          <span>Crafted by <strong>Tathagata Chakraborty</strong></span>
         </motion.div>
 
         {/* Dynamic Display Headline */}

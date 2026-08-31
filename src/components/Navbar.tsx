@@ -10,7 +10,8 @@ import {
   Sparkles,
   Info,
   Layers,
-  Home
+  Home,
+  BrainCircuit
 } from 'lucide-react';
 import { User as UserType } from '../types';
 
@@ -34,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   hasAnalyzedResume,
 }) => {
   return (
-    <header className="sticky top-0 z-40 bg-[#F6F1EA]/90 backdrop-blur-md border-b border-[#E5DDD0] text-[#1C1917] transition-colors shadow-2xs">
+    <header className="sticky top-0 z-40 bg-[#1C1917]/95 backdrop-blur-md border-b border-stone-800 text-stone-200 transition-colors shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
         {/* Brand Identity */}
@@ -42,31 +43,31 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="flex items-center space-x-3 cursor-pointer group shrink-0"
           onClick={() => setActiveTab('home')}
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white flex items-center justify-center font-bold text-xs tracking-wider shadow-xs ring-1 ring-emerald-500/20 group-hover:scale-105 transition-transform">
-            RM
+          <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:border-emerald-400/50 group-hover:bg-emerald-500/20 transition-all">
+            <BrainCircuit className="w-4 h-4" />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="font-bold text-base tracking-tight text-[#1C1917]">
-                Resu<span className="text-[#059669]">Mind</span>
+              <span className="font-['Carl_Brown','Cormorant_Garamond','Playfair_Display',Georgia,serif] font-bold text-lg tracking-wide text-white">
+                Resu<span className="text-[#10B981]">Mind</span>
               </span>
             </div>
-            <p className="text-[11px] text-[#78716C] font-normal hidden sm:block">
+            <p className="text-[11px] text-stone-400 font-normal hidden sm:block">
               Resume Diagnostics & ATS Review
             </p>
           </div>
         </div>
 
         {/* Primary Navigation Bar */}
-        <nav className="hidden md:flex items-center space-x-1 bg-[#F3EFE6] p-1 rounded-xl border border-[#E8E4DC]">
+        <nav className="hidden md:flex items-center space-x-1 p-1 rounded-xl">
           
           {/* 1. Home (Dedicated description, overview & value props) */}
           <button
             onClick={() => setActiveTab('home')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'home'
-                ? 'bg-white text-emerald-700 shadow-2xs'
-                : 'text-[#57534E] hover:text-[#1C1917]'
+                ? 'bg-stone-800/90 text-emerald-400 shadow-2xs border border-stone-700/60'
+                : 'text-stone-300 hover:text-white hover:bg-stone-800/50'
             }`}
             title="Overview & Platform Guide"
           >
@@ -79,8 +80,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('analyzer')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'analyzer'
-                ? 'bg-white text-emerald-700 shadow-2xs'
-                : 'text-[#57534E] hover:text-[#1C1917]'
+                ? 'bg-stone-800/90 text-emerald-400 shadow-2xs border border-stone-700/60'
+                : 'text-stone-300 hover:text-white hover:bg-stone-800/50'
             }`}
             title="Comprehensive Resume Audit, Score & ATS Review in one window"
           >
@@ -94,10 +95,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             disabled={!hasAnalyzedResume}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               !hasAnalyzedResume
-                ? 'opacity-40 cursor-not-allowed text-[#A8A29E]'
+                ? 'opacity-40 cursor-not-allowed text-stone-600'
                 : activeTab === 'jobMatch'
-                ? 'bg-white text-emerald-700 shadow-2xs cursor-pointer'
-                : 'text-[#57534E] hover:text-[#1C1917] cursor-pointer'
+                ? 'bg-stone-800/90 text-emerald-400 shadow-2xs border border-stone-700/60 cursor-pointer'
+                : 'text-stone-300 hover:text-white hover:bg-stone-800/50 cursor-pointer'
             }`}
             title={!hasAnalyzedResume ? 'Upload a resume first to enable Job Matching' : 'Tailor resume to job description'}
           >
@@ -111,10 +112,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             disabled={!hasAnalyzedResume}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               !hasAnalyzedResume
-                ? 'opacity-40 cursor-not-allowed text-[#A8A29E]'
+                ? 'opacity-40 cursor-not-allowed text-stone-600'
                 : activeTab === 'coverLetter'
-                ? 'bg-white text-emerald-700 shadow-2xs cursor-pointer'
-                : 'text-[#57534E] hover:text-[#1C1917] cursor-pointer'
+                ? 'bg-stone-800/90 text-emerald-400 shadow-2xs border border-stone-700/60 cursor-pointer'
+                : 'text-stone-300 hover:text-white hover:bg-stone-800/50 cursor-pointer'
             }`}
             title={!hasAnalyzedResume ? 'Upload a resume first to generate cover letters' : 'Cover Letter Drafter'}
           >
@@ -128,10 +129,10 @@ export const Navbar: React.FC<NavbarProps> = ({
             disabled={!hasAnalyzedResume}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               !hasAnalyzedResume
-                ? 'opacity-40 cursor-not-allowed text-[#A8A29E]'
+                ? 'opacity-40 cursor-not-allowed text-stone-600'
                 : activeTab === 'interviewPrep'
-                ? 'bg-white text-emerald-700 shadow-2xs cursor-pointer'
-                : 'text-[#57534E] hover:text-[#1C1917] cursor-pointer'
+                ? 'bg-stone-800/90 text-emerald-400 shadow-2xs border border-stone-700/60 cursor-pointer'
+                : 'text-stone-300 hover:text-white hover:bg-stone-800/50 cursor-pointer'
             }`}
             title={!hasAnalyzedResume ? 'Upload a resume first to generate interview questions' : 'Interview Q&A Guide'}
           >
@@ -144,8 +145,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => setActiveTab('profile')}
             className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === 'profile'
-                ? 'bg-white text-emerald-700 shadow-2xs'
-                : 'text-[#57534E] hover:text-[#1C1917]'
+                ? 'bg-stone-800/90 text-emerald-400 shadow-2xs border border-stone-700/60'
+                : 'text-stone-300 hover:text-white hover:bg-stone-800/50'
             }`}
           >
             <History className="w-3.5 h-3.5" />
@@ -159,10 +160,10 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* About / Description Modal Button */}
           <button
             onClick={onOpenAboutModal}
-            className="flex items-center space-x-1 px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-200/90 text-xs font-semibold transition-colors cursor-pointer"
+            className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-emerald-300 border border-stone-700 text-xs font-semibold transition-colors cursor-pointer"
             title="What is ResuMind?"
           >
-            <Info className="w-3.5 h-3.5 text-emerald-600" />
+            <Info className="w-3.5 h-3.5 text-emerald-400" />
             <span className="hidden sm:inline">About</span>
           </button>
 
@@ -171,21 +172,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setActiveTab('profile')}
-                className="flex items-center space-x-2 pl-2 pr-3 py-1 bg-[#F3EFE6] hover:bg-[#EAE5DA] rounded-lg border border-[#E8E4DC] transition-colors cursor-pointer"
+                className="flex items-center space-x-2 pl-2 pr-3 py-1 bg-stone-800 hover:bg-stone-700 rounded-lg border border-stone-700 transition-colors cursor-pointer"
               >
                 <img
                   src={user.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(user.name)}`}
                   alt={user.name}
-                  className="w-5 h-5 rounded-full bg-stone-200"
+                  className="w-5 h-5 rounded-full bg-stone-700"
                 />
-                <span className="text-xs font-semibold text-[#1C1917] max-w-[100px] truncate">
+                <span className="text-xs font-semibold text-stone-200 max-w-[100px] truncate">
                   {user.name}
                 </span>
               </button>
 
               <button
                 onClick={onLogout}
-                className="p-2 text-stone-400 hover:text-rose-600 hover:bg-[#F3EFE6] rounded-lg transition-colors cursor-pointer"
+                className="p-2 text-stone-400 hover:text-rose-400 hover:bg-stone-800 rounded-lg transition-colors cursor-pointer"
                 title="Sign Out"
               >
                 <LogOut className="w-4 h-4" />
@@ -194,7 +195,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               onClick={onOpenAuthModal}
-              className="flex items-center space-x-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer"
+              className="flex items-center space-x-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer"
             >
               <User className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -205,43 +206,43 @@ export const Navbar: React.FC<NavbarProps> = ({
       </div>
 
       {/* Mobile Sub-Navigation Bar */}
-      <div className="md:hidden flex items-center justify-between border-t border-[#E8E4DC] py-2 px-3 bg-[#FAF7F2] overflow-x-auto gap-1">
+      <div className="md:hidden flex items-center justify-between border-t border-stone-800 py-2 px-3 bg-[#151311] overflow-x-auto gap-1">
         <button
           onClick={() => setActiveTab('home')}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${activeTab === 'home' ? 'bg-emerald-600 text-white' : 'text-[#78716C]'}`}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${activeTab === 'home' ? 'bg-emerald-600 text-white' : 'text-stone-400 hover:text-stone-200'}`}
         >
           Home
         </button>
         <button
           onClick={() => setActiveTab('analyzer')}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${activeTab === 'analyzer' ? 'bg-emerald-600 text-white' : 'text-[#78716C]'}`}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${activeTab === 'analyzer' ? 'bg-emerald-600 text-white' : 'text-stone-400 hover:text-stone-200'}`}
         >
           Audit & ATS
         </button>
         <button
           onClick={() => setActiveTab('jobMatch')}
           disabled={!hasAnalyzedResume}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${!hasAnalyzedResume ? 'opacity-40' : activeTab === 'jobMatch' ? 'bg-emerald-600 text-white' : 'text-[#78716C]'}`}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${!hasAnalyzedResume ? 'opacity-40 text-stone-600' : activeTab === 'jobMatch' ? 'bg-emerald-600 text-white' : 'text-stone-400 hover:text-stone-200'}`}
         >
           Job Match
         </button>
         <button
           onClick={() => setActiveTab('coverLetter')}
           disabled={!hasAnalyzedResume}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${!hasAnalyzedResume ? 'opacity-40' : activeTab === 'coverLetter' ? 'bg-emerald-600 text-white' : 'text-[#78716C]'}`}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${!hasAnalyzedResume ? 'opacity-40 text-stone-600' : activeTab === 'coverLetter' ? 'bg-emerald-600 text-white' : 'text-stone-400 hover:text-stone-200'}`}
         >
           Cover Letter
         </button>
         <button
           onClick={() => setActiveTab('interviewPrep')}
           disabled={!hasAnalyzedResume}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${!hasAnalyzedResume ? 'opacity-40' : activeTab === 'interviewPrep' ? 'bg-emerald-600 text-white' : 'text-[#78716C]'}`}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${!hasAnalyzedResume ? 'opacity-40 text-stone-600' : activeTab === 'interviewPrep' ? 'bg-emerald-600 text-white' : 'text-stone-400 hover:text-stone-200'}`}
         >
           Interview
         </button>
         <button
           onClick={() => setActiveTab('profile')}
-          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${activeTab === 'profile' ? 'bg-emerald-600 text-white' : 'text-[#78716C]'}`}
+          className={`px-2.5 py-1 rounded-md text-xs font-medium shrink-0 ${activeTab === 'profile' ? 'bg-emerald-600 text-white' : 'text-stone-400 hover:text-stone-200'}`}
         >
           History
         </button>

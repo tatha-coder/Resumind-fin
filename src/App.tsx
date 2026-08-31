@@ -11,7 +11,7 @@ import { CoverLetterModal } from './components/CoverLetterModal';
 import { InterviewPrepModal } from './components/InterviewPrepModal';
 import { SupabaseBadge } from './components/SupabaseBadge';
 import { User, AnalysisResult } from './types';
-import { ShieldCheck, Mail, UserPlus, Sparkles, Info, CheckCircle2, Github, ExternalLink } from 'lucide-react';
+import { ShieldCheck, Mail, UserPlus, Sparkles, Info, CheckCircle2, Github, ExternalLink, BrainCircuit } from 'lucide-react';
 import { supabase, mapSupabaseUser } from './lib/supabase';
 import { safeFetchJson } from './lib/api';
 import { SAMPLE_RESUMES } from './lib/sampleResumes';
@@ -301,12 +301,12 @@ export default function App() {
           {/* Top Row: Brand & GitHub Button */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-stone-800">
             <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-2 sm:space-y-0 sm:space-x-4 text-center sm:text-left">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#059669] to-[#10B981] text-white flex items-center justify-center font-bold text-sm tracking-wider shadow-sm ring-1 ring-emerald-500/20">
-                RM
+              <div className="w-9 h-9 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <BrainCircuit className="w-4.5 h-4.5" />
               </div>
               <div>
                 <div className="flex items-center justify-center sm:justify-start space-x-2">
-                  <span className="font-extrabold text-lg text-white tracking-tight">
+                  <span className="font-['Carl_Brown','Cormorant_Garamond','Playfair_Display',Georgia,serif] font-bold text-lg text-white tracking-wide">
                     Resu<span className="text-[#10B981]">Mind</span>
                   </span>
                 </div>
