@@ -238,6 +238,26 @@ app.get('/api/supabase/status', async (req: Request, res: Response) => {
 
 // --- AUTH ROUTES ---
 
+function isValidEmail(email: string): boolean {
+  if (!email || typeof email !== 'string') return false;
+  const trimmed = email.trim();
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(trimmed)) return false;
+  if (trimmed.includes('..')) return false;
+
+  const parts = trimmed.split('@');
+  if (parts.length !== 2) return false;
+
+  const [localPart, domainPart] = parts;
+  if (!localPart || !domainPart) return false;
+
+  if (domainPart.startsWith('-') || domainPart.endsWith('-') || domainPart.startsWith('.') || domainPart.endsWith('.')) {
+    return false;
+  }
+
+  return true;
+}
+
 // 1. Register User with Supabase
 app.post('/api/auth/register', async (req: Request, res: Response) => {
   try {
@@ -245,6 +265,10 @@ app.post('/api/auth/register', async (req: Request, res: Response) => {
 
     if (!email || !password || !name) {
       return res.status(400).json({ error: 'Name, email, and password are required.' });
+    }
+
+    if (!isValidEmail(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email address.' });
     }
 
     if (password.length < 6) {

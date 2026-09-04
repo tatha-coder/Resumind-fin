@@ -86,3 +86,32 @@ export async function checkSupabaseConnection(): Promise<{
   }
 }
 
+/**
+ * Validates whether an email string has a standard, valid email format.
+ * Rejects invalid formats such as 'abc', 'abc@', 'abc@domain', 'abc@domain.', 'abc@.com', etc.
+ */
+export function isValidEmail(email: string): boolean {
+  if (!email || typeof email !== 'string') return false;
+  const trimmed = email.trim();
+
+  // Basic RFC 5322 compatible regex requiring user part, @, domain name with at least one dot, and valid TLD (2+ chars)
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(trimmed)) return false;
+
+  // Cannot contain consecutive dots
+  if (trimmed.includes('..')) return false;
+
+  const parts = trimmed.split('@');
+  if (parts.length !== 2) return false;
+
+  const [localPart, domainPart] = parts;
+  if (!localPart || !domainPart) return false;
+
+  // Domain cannot start or end with a hyphen or dot
+  if (domainPart.startsWith('-') || domainPart.endsWith('-') || domainPart.startsWith('.') || domainPart.endsWith('.')) {
+    return false;
+  }
+
+  return true;
+}
+

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Lock, User, Briefcase, Shield, ArrowRight, X, AlertCircle, CheckCircle2, KeyRound } from 'lucide-react';
 import { User as UserType } from '../types';
-import { supabase, mapSupabaseUser } from '../lib/supabase';
+import { supabase, mapSupabaseUser, isValidEmail } from '../lib/supabase';
 import { safeFetchJson } from '../lib/api';
 
 interface AuthModalProps {
@@ -38,6 +38,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
     if (mode === 'register' && !name) {
       setError('Please provide your full name.');
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (mode === 'register' && password.length < 6) {
+      setError('Password must be at least 6 characters long.');
       return;
     }
 
@@ -241,7 +251,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-3.5">
+          <form onSubmit={handleSubmit} noValidate className="space-y-3.5">
             {mode === 'register' && (
               <>
                 <div>
